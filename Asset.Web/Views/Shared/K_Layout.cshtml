@@ -1,0 +1,253 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <link rel="shortcut icon" type="image/x-icon" href="~/assets/img/favicon.ico">
+    <title>ASSET - LIABILITY </title>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="~/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="~/assets/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="~/assets/css/dataTables.bootstrap.min.css">
+    <link href="~/assets/plugins/datatables/plugins/bootstrap/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="~/assets/css/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="~/assets/css/bootstrap-datetimepicker.min.css">
+    @*<link rel="stylesheet" type="text/css" href="~/assets/plugins/morris/morris.css">*@
+    <link rel="stylesheet" type="text/css" href="~/assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="~/assets/plugins/summernote/dist/summernote.css">
+    <link rel="stylesheet" type="text/css" href="~/assets/css/style.css">
+    @*<link rel="stylesheet" type="text/css" href="~/sweetAlert/sweetalert.css" />*@
+    <script src="~/assets/js/jquery-3.2.1.min.js"></script>
+  
+
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>@ViewData["Title"] - Asset.Web</title>
+        @*<link rel="stylesheet" href="~/css/site.css" />*@
+    </head>
+<body>
+    <div class="main-wrapper">
+
+        <div class="header">
+            @*<header>*@
+            <div class="header-left">
+                <a href="index.html" class="logo">
+                    @*<img src="~/assets/img/logo.png" width="40" height="40" alt="">*@
+                    <img src="~/assets/img/ABC.png" width="40" height="40" alt="" />
+                </a>
+            </div>
+
+            <div class="page-title-box pull-left">
+                <h3>AlphaBeta LLP </h3>
+            </div>
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+                <div class="container">
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Asset.Web</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                        <partial name="_LoginPartial" />
+                        <ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            @*</header>*@
+
+            <div class="sidebar" id="sidebar">
+                <div class="sidebar-inner slimscroll">
+
+
+                    <div id="sidebar-menu" class="sidebar-menu">
+                        <ul>
+                            <li>
+                                <a href="index.html">Dashboard</a>
+                            </li>
+
+                            <li class="submenu">
+                                <a href="#" class="noti-dot"><span> Employees</span> <span class="menu-arrow"></span></a>
+                                <ul class="list-unstyled" style="display: none;">
+                                    -->
+                                    <li><a class="active" asp-controller="HRM" asp-action="Index">All Employees</a></li>
+                                    <li><a asp-controller="HRM" asp-action="Degree">Add Qualification</a></li>
+                                    <li><a asp-controller="HRM" asp-action="Degree">Academic Qualification</a></li>
+                                    <li><a asp-controller="HRM" asp-action="EmpChild">Add CHILDREN</a></li>
+                                    <li><a asp-controller="HRM" asp-action="Spouse">Add Spouse</a></li>
+                                    <li><a href="/hrm/AddEmp">My Bio Data</a></li>
+                                    <li><a href="leaves.html"><span>Leave Requests</span> <span class="badge bg-primary pull-right">1</span></a></li>
+                                    <li><a asp-controller="HRMAdmin" asp-action="StaffENu">Staff Deployment</a></li>
+                                    <li><a asp-controller="MyPage" asp-action="MyPageList">Manage Page</a></li>
+                                    <li><a asp-controller="Role" asp-action="Index">Role Management</a></li>
+                                    <li><a asp-controller="SuperAdmin" asp-action="Index">User Management</a></li>
+                                    <li><a asp-controller="MyServices" asp-action="Index">TEst</a></li>
+                                    <li><a asp-controller="HRM" asp-action="MystaffLeaf">Apply Leave</a></li>
+                                    <li><a asp-controller="HRM" asp-action="ApplyLeaf">Apply 2 Leave</a></li>
+                                    <li><a asp-controller="HRM" asp-action="MyRequest">My Request</a></li>
+                                    <li><a asp-controller="HRMAdmin" asp-action="Index">Configure Grade Level</a></li>
+                                    <li><a asp-controller="HRMAdmin" asp-action="MyGrades">Create Grade Level</a></li>
+                                    <li><a asp-controller="HRMAdmin" asp-action="GradeSystem">Create Grade System</a></li>
+                                    <li><a asp-controller="HRMAdmin" asp-action="IndexOrg">Create Organisation Structure</a></li>
+                                    <li><a asp-controller="HRMAdmin" asp-action="IndexOrganogram">Create Organograme</a></li>
+                                    <li><a asp-controller="HRMAdmin" asp-action="IndexMyOrg">Create Company</a></li>
+                                    <li><a asp-controller="HRMAdmin" asp-action="Deploy">Deploy Staff</a></li>
+                                    <li><a asp-controller="HRMAdmin" asp-action="LeaveType">Leave Type</a></li>
+                                    <li><a asp-controller="HRMAdmin" asp-action="MyConfigureLeaveGrade">Grade Leave Configuration</a></li>
+                                    <li><a asp-controller="AllawanceDeductions" asp-action="Index">Allowance And Deduction</a></li>
+                                    <li><a asp-controller="StaffAllowances" asp-action="Index">Salary Grade</a></li>
+                                    <li><a asp-controller="RoleAdmin" asp-action="Roles">My Permission</a></li>
+                                    <li><a asp-controller="RoleAdmin" asp-action="Users">Edit Users</a></li>
+
+                                </ul>
+                            </li>
+
+                            <li class="submenu">
+                                <a href="#"><span> Payroll </span> <span class="menu-arrow"></span></a>
+                                <ul class="list-unstyled" style="display: none;">
+                                    <li><a class="active" asp-action="SalaryList" asp-controller="OurHr"> Employee Salary </a></li>
+                                    <li><a href="salary-view.html"> Payslip </a></li>
+                                </ul>
+                            </li>
+
+
+
+
+                            <li>
+                                <a href="clients.html">Clients</a>
+                            </li>
+                            <li>
+                                <a href="projects.html">Projects</a>
+                            </li>
+                            <li>
+                                <a href="tasks.html">Tasks</a>
+                            </li>
+                            <li class="submenu">
+                                <a href="#"><span> Assets</span> <span class="menu-arrow"></span></a>
+                                <ul class="list-unstyled" style="display: none;">
+                                    <li><a asp-action="Asset" asp-controller="Home">Asset</a></li>
+                                    <li><a asp-action="CatList" asp-controller="Home">Category List</a></li>
+                                    <li><a asp-action="SubCatList" asp-controller="Home">Sub Category List</a></li>
+                                    <li><a asp-action="SupplyList" asp-controller="Home">Supplier List</a></li>
+
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="contacts.html">Contacts</a>
+                            </li>
+
+                            <li>
+                                <a asp-controller="Manage" asp-action="SettingIndex">Setting </a>
+                            </li>
+                            <li>
+                                <a href="leads.html">Leads</a>
+                            </li>
+                            <li class="submenu">
+                                <a href="#"><span> Accounts </span> <span class="menu-arrow"></span></a>
+                                <ul class="list-unstyled" style="display: none;">
+                                    <li><a href="estimates.html">Estimates</a></li>
+                                    <li><a href="invoices.html">Invoices</a></li>
+                                    <li><a href="payments.html">Payments</a></li>
+                                    <li><a href="expenses.html">Expenses</a></li>
+                                    <li><a href="provident-fund.html">Provident Fund</a></li>
+                                    <li><a href="taxes.html">Taxes</a></li>
+                                </ul>
+                            </li>
+                            <li class="submenu">
+                                <a href="#"><span> Payroll </span> <span class="menu-arrow"></span></a>
+                                <ul class="list-unstyled" style="display: none;">
+                                    <li><a href="salary.html"> Employee Salary </a></li>
+                                    <li><a href="salary-view.html"> Payslip </a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a asp-controller="Account" asp-action="TestMethod1">Tickets</a>
+                            </li>
+                            <li>
+                                <a asp-controller="Account" asp-action="TestMethod1">Tickets</a>
+                            </li>
+                            <li>
+                                <a asp-controller="Account" asp-action="TestMethod2">Events</a>
+                            </li>
+                            <li>
+                                <a href="inbox.html">Email</a>
+                            </li>
+                            <li>
+                                <a href="chat.html">Chat <span class="badge bg-primary pull-right">5</span></a>
+                            </li>
+                            <li>
+                                <a href="assets.html">Assets</a>
+                            </li>
+                            <li>
+                                <a href="activities.html">Activities</a>
+                            </li>
+                            <li>
+                                <a href="users.html">Users</a>
+                            </li>
+                            <li class="submenu">
+                                <a href="#"><span> Reports </span> <span class="menu-arrow"></span></a>
+                                <ul class="list-unstyled" style="display: none;">
+                                    <li><a href="expense-reports.html"> Expense Report </a></li>
+                                    <li><a href="invoice-reports.html"> Invoice Report </a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="settings.html">Settings</a>
+                            </li>
+                            <li class="submenu">
+                                <a href="#"><span> Pages </span> <span class="menu-arrow"></span></a>
+                                <ul class="list-unstyled" style="display: none;">
+                                    <li><a href="login.html"> Login </a></li>
+                                    <li><a href="register.html"> Register </a></li>
+                                    <li><a href="forgot-password.html"> Forgot Password </a></li>
+                                    <li><a href="profile.html"> Profile </a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+            <div class="page-wrapper">
+                @RenderBody()
+
+            </div>
+        </div>
+
+    </div>
+
+            @*<footer class="border-top footer text-muted">
+                <div class="container">
+                    &copy; 2021 - Asset.Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                </div>
+            </footer>*@
+         
+
+            <div class="sidebar-overlay" data-reff="#sidebar"></div>
+            <script type="text/javascript" src="~/assets/js/jquery-3.2.1.min.js"></script>
+            <script type="text/javascript" src="~/assets/js/bootstrap.min.js"></script>
+            <script type="text/javascript" src="~/assets/js/jquery.dataTables.min.js"></script>
+            <script src="~/assets/plugins/datatables/plugins/bootstrap/dataTables.bootstrap4.min.js"></script>
+            @*<script src="~/assets/js/pages/table/table_data.js"></script>*@
+            <script type="text/javascript" src="~/assets/js/dataTables.bootstrap.min.js"></script>
+
+
+            <script type="text/javascript" src="~/assets/js/jquery.slimscroll.js"></script>
+            @*<script type="text/javascript" src="~/assets/plugins/morris/morris.min.js"></script>*@
+            <script type="text/javascript" src="~/assets/plugins/raphael/raphael-min.js"></script>
+            <script type="text/javascript" src="~/assets/js/select2.min.js"></script>
+            <script type="text/javascript" src="~/assets/js/moment.min.js"></script>
+            <script type="text/javascript" src="~/assets/js/bootstrap-datetimepicker.min.js"></script>
+            <script type="text/javascript" src="~/assets/js/app.js"></script>
+            <script type="text/javascript" src="~/assets/plugins/summernote/dist/summernote.min.js"></script>
+
+
+            @RenderSection("Scripts", required: false)
+</body>
+    </html>

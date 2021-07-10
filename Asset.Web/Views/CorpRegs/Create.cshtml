@@ -1,0 +1,198 @@
+﻿@model Asset.Web.Models.CorpReg
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/assets/js/jquery-3.2.1.min.js"></script>
+
+<script type="text/javascript">
+     $(document).ready(function(){
+        getSubCategory();
+         $('#State').change(function () {
+            getSubCategory();
+
+         })
+         $('#DeployToSectId').change(function () {
+
+             if ($("#MyGradeStepId option:selected").text() != "Please select one") {
+                 GetDesignation();
+             }
+
+             else {
+                 alert("Select Grade")
+                 getSubCategory();
+             }
+
+         })
+
+         $('#Generate').click(function (e) {
+             e.preventDefault();
+             if ($("#Company option:selected").text() != "Please select one") {
+                 GetMyStaffId();
+             }
+             else {
+                 alert("Select Company");
+
+             }
+
+         })
+    });
+
+    function getSubCategory() {
+
+        var url = '@Url.Content("~/")' + "CorpRegs/GetLga";
+        var ddlsource = "#State";
+        //alert(ddlsource.val());
+        $.getJSON(url, { CategoryID: $(ddlsource).val() }, function (data) {
+           
+            var items = "<option value='" + "Select Section" + "'>" + "Select Section" + "</option>";;
+            $("#LGA").empty();
+            $.each(data, function (i, subcategory) {
+                items += "<option value='" + subcategory.value + "'>" + subcategory.text + "</option>";
+            });
+            $('#LGA').html(items);
+        })
+
+    }
+
+    function GetDesignation()
+    {
+        var urls = '@Url.Content("~/")' + "HRMAdmin/GetDesignation";
+        var ddlsources = "#DeployToSectId";
+        var ddlsourcesGrade = "#MyGradeStepId";
+        $.getJSON(urls, { CategoryIDs: $(ddlsources).val(), CategoryGrade: $(ddlsourcesGrade).val() }, function (datas) {
+            $("#DesignationName").val(datas);
+
+        })
+    }
+
+    function GetMyStaffId()
+    {
+        var urls = '@Url.Content("~/")' + "HRMAdmin/GenerateStaffNo";
+        var ddlsourcesGenerate = "#Company";
+        $.getJSON(urls, {Generate: $(ddlsourcesGenerate).val() }, function (MyNumber) {
+            $("#StaffNo").val(MyNumber);
+
+        })
+    }
+
+    $(function () {
+        $("form").submit(function () {
+            var DeployToPlace = $("#DeployToPlaceId option:selected").text();
+            $("#DeployToPlace").val(DeployToPlace);
+            //var DesignationName = $("#DesignationId option:selected").text();
+            //$("#DesignationName").val(DesignationName);
+
+            var StaffFunction = $("#MyGradeStepId option:selected").text();
+            $("#StaffFunction").val(StaffFunction);
+
+            var MyGradeStepName = $("#MyGradeStepId option:selected").text();
+            $("#MyGradeStepName").val(MyGradeStepName);
+        });
+    });
+
+</script>
+
+<div class="content container-fluid">
+
+
+    <div class="card-box">
+        <div class="row">
+            <div class="col-xs-4">
+                <h4 class="page-title">Enroll Coperative</h4>
+            </div>
+            @*<div class="col-xs-8 text-right m-b-30">
+                    <a asp-controller="HRMAdmin" asp-action="DeployStaff" class="btn btn-primary pull-right rounded"><i class="fa fa-plus"></i> Add Grade Step</a>
+                </div>*@
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="modal-body">
+                        <div class="col-md-12">
+                            <form asp-action="Create">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label asp-for="CopRegNum" class="control-label"></label>
+                                        <input asp-for="CopRegNum" class="form-control" />
+                                        <span asp-validation-for="CopRegNum" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <div class="form-group">
+                                        <label asp-for="Name" class="control-label"></label>
+                                        <input asp-for="Name" class="form-control" />
+                                        <span asp-validation-for="Name" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label asp-for="Address" class="control-label"></label>
+                                        <input asp-for="Address" class="form-control" />
+                                        <span asp-validation-for="Address" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <div class="form-group">
+                                        <label asp-for="State" class="control-label"></label>
+                                        <select class="form-control floating" asp-for="State" asp-items="@(new SelectList(ViewBag.State,"state_id", "state_name"))"></select>
+                                        <span asp-validation-for="State" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label asp-for="LGA" class="control-label"></label>
+                                        <select class="select" asp-for="LGA" required asp-items="@(new SelectList(String.Empty,"lga_id", "lga_name"))"></select>
+                                        <span asp-validation-for="LGA" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <div class="form-group">
+                                        <label asp-for="Phone" class="control-label"></label>
+                                        <input asp-for="Phone" class="form-control" />
+                                        <span asp-validation-for="Phone" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label asp-for="Email" class="control-label"></label>
+                                        <input asp-for="Email" class="form-control" />
+                                        <span asp-validation-for="Email" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label asp-for="Website" class="control-label"></label>
+                                        <input asp-for="Website" class="form-control" />
+                                        <span asp-validation-for="Website" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                    <div class="form-group col-sm-6">
+                                        <div class="form-group">
+                                            <label asp-for="CACRegno" class="control-label"></label>
+                                            <input asp-for="CACRegno" class="form-control" />
+                                            <span asp-validation-for="CACRegno" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <input type="submit" value="Submit" class="btn btn-success" />
+                                    </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div>
+                        <a class="btn btn-primary" asp-action="Index">Back to List</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

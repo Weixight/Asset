@@ -1,0 +1,153 @@
+﻿@model List<Asset.Web.Models.NavigationMenu>
+    @*@model List<OurHr.Models.RoleMenuPermission>*@
+
+@{
+    ViewData["Title"] = "Edit Role Permission";
+}
+
+<div class="content container-fluid">
+    <form asp-action="EditRolePermission">
+        <div class="card-box m-b-0 panel panel-danger" style="margin-top:20px">
+            <div class="row">
+                <div class="col-xs-4">
+                    <h4 class="page-title">Role Permission</h4>
+                </div>
+
+            </div>
+            <div class="table-responsive m-t-15">
+
+                <table class="table table-striped custom-table">
+                    <thead>
+
+                        <tr>
+                            <th>Module Permission</th>
+                            <th class="text-center">Read</th>
+                            <th class="text-center">Create</th>
+                            <th class="text-center">Delete</th>
+                            <th class="text-center">Update</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @for (var i = 0; i < Model.Where(p =>p.ControllerName == null && p.ActionName ==null).ToList().Count; i++)
+                        {
+                        <tr>
+                            <td>@Model[i].Name</td>
+                            @if (Model[i].Read == true)
+                            {
+                        <td class="text-center">
+                            <input type="hidden" asp-for="@Model[i].Permitted" />
+                            <input type="hidden" asp-for="@Model[i].Name" />
+                            <input type="hidden" asp-for="@Model[i].Id" />
+                            <input checked="@Model[i].Read" type="checkbox" asp-for="@Model[i].Read">
+                        </td>
+                            }
+                            else
+                            {
+                        <td class="text-center">
+                            <input type="hidden" asp-for="@Model[i].Permitted" />
+                            <input type="hidden" asp-for="@Model[i].Name" />
+                            <input type="hidden" asp-for="@Model[i].Id" />
+                            <input type="checkbox" asp-for="@Model[i].Read">
+                        </td>
+                            }
+
+                            @if (Model[i].Create == true)
+                            {
+                        <td class="text-center">
+                            <input type="hidden" asp-for="@Model[i].Permitted" />
+                            <input type="hidden" asp-for="@Model[i].Name" />
+                            <input type="hidden" asp-for="@Model[i].Id" />
+                            <input checked="@Model[i].Read" type="checkbox" asp-for="@Model[i].Create">
+                        </td>
+                            }
+                            else
+                            {
+                        <td class="text-center">
+                            <input type="hidden" asp-for="@Model[i].Permitted" />
+                            <input type="hidden" asp-for="@Model[i].Name" />
+                            <input type="hidden" asp-for="@Model[i].Id" />
+                            <input type="checkbox" asp-for="@Model[i].Create">
+                        </td>
+                            }
+
+                            @if (Model[i].Delete == true)
+                            {
+                        <td class="text-center">
+                            <input type="hidden" asp-for="@Model[i].Permitted" />
+                            <input type="hidden" asp-for="@Model[i].Name" />
+                            <input type="hidden" asp-for="@Model[i].Id" />
+                            <input checked="@Model[i].Read" type="checkbox" asp-for="@Model[i].Delete">
+                        </td>
+                            }
+
+                            else
+                            {
+                        <td class="text-center">
+                            <input type="hidden" asp-for="@Model[i].Permitted" />
+                            <input type="hidden" asp-for="@Model[i].Name" />
+                            <input type="hidden" asp-for="@Model[i].Id" />
+                            <input type="checkbox" asp-for="@Model[i].Delete">
+                        </td>
+                            }
+
+                            @if (Model[i].Update == true)
+                            {
+                        <td class="text-center">
+                            <input type="hidden" asp-for="@Model[i].Permitted" />
+                            <input type="hidden" asp-for="@Model[i].Name" />
+                            <input type="hidden" asp-for="@Model[i].Id" />
+                            <input checked="@Model[i].Read" type="checkbox" asp-for="@Model[i].Update">
+                        </td>
+                            }
+                            else
+                            {
+                        <td class="text-center">
+                            <input type="hidden" asp-for="@Model[i].Permitted" />
+                            <input type="hidden" asp-for="@Model[i].Name" />
+                            <input type="hidden" asp-for="@Model[i].Id" />
+                            <input type="checkbox" asp-for="@Model[i].Update">
+                        </td>
+                            }
+                        </tr>
+                        }
+
+                    </tbody>
+                </table>
+
+            </div>
+            <div class="m-t-20 text-center">
+                <input type="submit" class="btn btn-primary" value="Save">
+            </div>
+        </div>
+    </form>
+</div>
+<div class="content container-fluid">
+    <div class="card-box m-b-0 panel panel-danger" style="margin-top:20px">
+        <div class="row">
+            <div class="col-md-4">
+                <form asp-action="EditRolePermission">
+                    <div class="form-group">
+                        <ul style="list-style-type: none;">
+                            @for (var i = 0; i < Model.Count; i++)
+                            {
+                                <li>
+                                    <input type="checkbox" asp-for="@Model[i].Permitted" />
+                                    <label style="margin-left:10px;" asp-for="@Model[i].Permitted">@Model[i].Name</label>
+                                    <input type="hidden" asp-for="@Model[i].Id" />
+                                    <input type="hidden" asp-for="@Model[i].Name" />
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Save" class="btn btn-primary" />
+                        <a asp-action="Roles">Back to List</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,139 @@
+﻿@model IEnumerable<Asset.Web.ViewModels.AssetLiabilityView>
+@inject IHttpContextAccessor HttpContextAccessor
+@using Microsoft.AspNetCore.Http
+@using System.Text;
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content container-fluid">
+    <div class="row">
+        <div class="col-md-6 col-sm-6 col-lg-4 ">
+            <div class="dash-widget clearfix card-box bg-success ">
+                <span class="dash-widget-icon"><i class="fa fa-money" aria-hidden="true"></i></span>
+                <div class="dash-widget-info">
+                    <h3>&#x20A6;@ViewBag.Asset.ToString("##,###.##")</h3>
+                    <span>Total Asset</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-6 col-lg-4">
+            <div class="dash-widget clearfix card-box  bg-danger">
+                <span class="dash-widget-icon"><i class="fa fa-money" aria-hidden="true"></i></span>
+                <div class="dash-widget-info">
+                    <h3>&#x20A6;@ViewBag.TotalLibaility.ToString("##,###.##")</h3>
+                    <span>Total Liability</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-6 col-lg-4">
+            <div class="dash-widget clearfix card-box bg-primary">
+                <span class="dash-widget-icon"><i class="fa fa-money"></i></span>
+                <div class="dash-widget-info">
+                    <h3>&#x20A6;@ViewBag.NetWorth.ToString("##,###.##")</h3>
+                    <span>Net Worth</span>
+                </div>
+            </div>
+        </div>
+        @*<div class="col-md-6 col-sm-6 col-lg-3">
+                <div class="dash-widget clearfix card-box">
+                    <span class="dash-widget-icon"><i class="fa fa-users" aria-hidden="true"></i></span>
+                    <div class="dash-widget-info">
+                        <h3>@ViewBag.users</h3>
+                        <span>Employees</span>
+                    </div>
+                </div>
+            </div>*@
+    </div>
+    <div class="card-box m-b-0 panel panel-danger" style="margin-top:20px">
+        <div class="row">
+            <div class="col-xs-4">
+                <h4 class="page-title">Assets and Liabilities</h4>
+            </div>
+            <div class="col-xs-8 text-right m-b-30">
+                <a asp-action="Create" class="btn btn-primary pull-right rounded"><i class="fa fa-plus"></i> Add Page</a>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                @ViewBag.Exist
+                <div class="table-responsive">
+
+
+                    <table class="table table-striped custom-table datatable" id="example">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Name)
+                                </th>
+                              
+                                <th>
+                                    
+                                  @Html.DisplayNameFor(model => model.Value)
+                                </th>
+
+                                <th>
+                                    @Html.DisplayNameFor(model => model.CorpNName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TenureName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ItemType)
+                                </th>
+                              
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <th></th>
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </td>
+                              
+                                <td>
+                                    @{
+                                        var Amount = item.Value;
+                                    }
+                                    &#x20A6;@Amount.ToString("##,###.##")
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CorpNName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ItemType)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TenureName)
+                                </td>
+                              
+                                @if (User.IsInRole("SuperAdmin"))
+                                {
+                            <td>
+                              
+                                <a asp-action="Edit" class="btn btn-primary fa fa-edit" asp-route-id="@item.id">Edit</a> |
+                                <a asp-action="Details" class="btn btn-default fa fa-book-open" asp-route-id="@item.id">Details</a> |
+                                <a asp-action="Delete" class="btn btn-danger fa fa-recycle" asp-route-id="@item.id">Delete</a>
+
+                            </td>
+                                }
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,61 @@
+﻿@model IEnumerable<Asset.Web.ViewModels.RoleViewModel>
+@{
+    ViewData["Title"] = "Roles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<div class="content container-fluid">
+    <div class="card-box m-b-0 panel panel-danger" style="margin-top:20px">
+        <div class="row">
+            <div class="col-xs-4">
+                <h4 class="page-title">Role Management</h4>
+            </div>
+            <div class="col-xs-8 text-right m-b-30">
+                <a asp-action="CreateRole" class="btn btn-primary pull-right rounded"><i class="fa fa-plus"></i>Create New</a>
+                <div class="view-icons">
+                    <a href="employees.html" class="grid-view btn btn-link"><i class="fa fa-th"></i></a>
+                    <a class="list-view btn btn-link active"><i class="fa fa-bars"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                @ViewBag.Exist
+                <div class="table-responsive">
+                    <table class="table table-striped custom-table datatable" id="example">
+                        <thead>
+                       
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Id)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Name)
+                                </th>
+                                <th>
+
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Id)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Name)
+                                    </td>
+                                    <td>
+                                        <a  class="btn btn-sm btn-success" asp-action="EditRolePermission" asp-controller="RoleAdmin" asp-route-id="@item.Id">Edit Permissions</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,73 @@
+﻿@model Asset.Web.ViewModels.AssetLiabilityView
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>AssetLiabilityView</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Type)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Type)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Tenure)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Tenure)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Value)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Value)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CopAssetRegNo)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CopAssetRegNo)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CorpNName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CorpNName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TenureName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TenureName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CorpId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CorpId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AssetDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AssetDate)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

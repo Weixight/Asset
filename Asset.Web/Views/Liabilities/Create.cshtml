@@ -1,0 +1,92 @@
+﻿@model Asset.Web.Liability
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="content container-fluid">
+
+
+    <div class="card-box">
+        <div class="row">
+            <div class=" card-body">
+
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <form asp-action="Create">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label asp-for="Name" class="control-label"></label>
+                                    <input asp-for="Name" class="form-control" />
+                                    <span asp-validation-for="Name" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <div class="form-group">
+                                    <label asp-for="Type" class="control-label"></label>
+                                    <select class="form-control floating" asp-for="Type" asp-items="@(new SelectList(ViewBag.Type,"id", "Name"))"></select>
+                                    <span asp-validation-for="Type" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label asp-for="Tenure" class="control-label"></label>
+                                    <input asp-for="Tenure" class="form-control" />
+                                    <span asp-validation-for="Tenure" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <div class="form-group">
+                                    <label asp-for="Value" class="control-label"></label>
+                                    <input asp-for="Value" class="form-control" type="number" min="0.01" step="0.01" />
+                                    <span asp-validation-for="Value" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label asp-for="CorpNName" class="control-label"></label>
+                                    <input asp-for="CorpNName" class="form-control" value="@ViewBag.Name" readonly />
+                                    <span asp-validation-for="CorpNName" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <div class="form-group">
+                                    <label asp-for="CorpId" class="control-label"></label>
+                                    <input asp-for="CorpId" class="form-control" value="@ViewBag.CorpRegno" readonly />
+                                    <span asp-validation-for="CorpId" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label asp-for="AssetDate" class="control-label"></label>
+                                    <input asp-for="AssetDate" class="form-control" />
+                                    <span asp-validation-for="AssetDate" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <div class="form-group">
+                                    <label asp-for="LiabilityRegNo" class="control-label"></label>
+                                    <input asp-for="LiabilityRegNo" class="form-control" value="@ViewBag.AsstNo" readonly />
+                                    <span asp-validation-for="LiabilityRegNo" class="text-danger"></span>
+                                </div>
+                            </div>
+                           
+
+                            <div class="form-group">
+                                <input type="submit" value="Create" class="btn btn-success" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                @section Scripts {
+                    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+                }

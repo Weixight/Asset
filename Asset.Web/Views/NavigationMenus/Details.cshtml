@@ -1,0 +1,105 @@
+﻿@model Asset.Web.Models.NavigationMenu
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content container-fluid">
+    <div class="card-box m-b-0 panel panel-danger" style="margin-top:20px">
+        <div class="row">
+            <div class="col-xs-4">
+                <h4 class="page-title">Navigation Menu Details</h4>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <form asp-action="Edit">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="Id" />
+                        <div class="col-sm-6">
+                            <div class="form-group form-focus">
+                                <label asp-for="Name" class="control-label"></label>
+                                <input asp-for="Name" class="form-control floating" disabled />
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group form-focus">
+                                <label asp-for="ParentMenuId" class="control-label"></label>
+                                <select asp-for="ParentMenuId" class="form-control floating" asp-items="ViewBag.ParentMenuId" disabled></select>
+                                <span asp-validation-for="ParentMenuId" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group form-focus">
+                                <label asp-for="Area" class="control-label"></label>
+                                <input asp-for="Area" class="form-control floating" disabled />
+                                <span asp-validation-for="Area" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group form-focus">
+                                <label asp-for="ControllerName" class="control-label"></label>
+                                <input asp-for="ControllerName" class="form-control floating" disabled />
+                                <span asp-validation-for="ControllerName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group form-focus">
+                                <label asp-for="ActionName" class="control-label"></label>
+                                <input asp-for="ActionName" class="form-control floating" disabled />
+                                <span asp-validation-for="ActionName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group form-focus">
+                                <div class="checkbox">
+                                    <label>
+                                        <input asp-for="IsExternal" disabled /> @Html.DisplayNameFor(model => model.IsExternal)
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group form-focus">
+                                <label asp-for="ExternalUrl" class="control-label"></label>
+                                <input asp-for="ExternalUrl" class="form-control floating" disabled />
+                                <span asp-validation-for="ExternalUrl" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group form-focus">
+                                <label asp-for="DisplayOrder" class="control-label"></label>
+                                <input asp-for="DisplayOrder" class="form-control floating" disabled />
+                                <span asp-validation-for="DisplayOrder" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group form-focus">
+                                <div class="checkbox">
+                                    <label>
+                                        <input asp-for="Visible" disabled /> @Html.DisplayNameFor(model => model.Visible)
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+                @*<div class="text-center m-t-20">
+                    <div class="form-group col-sm-12">
+                        <input type="submit" value="Save" class="btn btn-primary btn-lg" />
+                    </div>
+                </div>*@
+            <div>
+                <a asp-action="Edit" class="btn btn-primary" asp-route-id="@Model.Id">Edit</a> ||
+                <a asp-action="Index" class="btn btn-success">Back to List</a>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+

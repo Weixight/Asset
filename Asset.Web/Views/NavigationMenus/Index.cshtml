@@ -1,0 +1,96 @@
+﻿@model IEnumerable<Asset.Web.Models.NavigationMenu>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="content container-fluid">
+    <div class="card-box m-b-0 panel panel-danger" style="margin-top:20px">
+        <div class="row">
+            <div class="col-xs-4">
+                <h4 class="page-title">Pages</h4>
+            </div>
+            <div class="col-xs-8 text-right m-b-30">
+                <a  asp-action="Create" class="btn btn-primary pull-right rounded"><i class="fa fa-plus"></i> Add Page</a>
+                <div class="view-icons">
+                    <a href="employees.html" class="grid-view btn btn-link"><i class="fa fa-th"></i></a>
+                    <a href="employees-list.html" class="list-view btn btn-link active"><i class="fa fa-bars"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                @ViewBag.Exist
+                <div class="table-responsive">
+                    <table class="table table-striped custom-table datatable" id="example">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Name)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ParentNavigationMenu)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Area)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ControllerName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ActionName)
+                                </th>
+
+                                <th>
+                                    @Html.DisplayNameFor(model => model.DisplayOrder)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Visible)
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ParentNavigationMenu.Id)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Area)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ControllerName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ActionName)
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DisplayOrder)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Visible)
+                                    </td>
+                                    <td style="width:250px;">
+                                        <a asp-action="Edit" class="btn btn-primary btn-xs " asp-route-id="@item.Id">Edit</a> |
+                                        <a asp-action="Details" class="btn btn-success btn-xs " asp-route-id="@item.Id">Details</a> |
+                                        <a asp-action="Delete" class="btn btn-danger btn-xs " asp-route-id="@item.Id">Delete</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

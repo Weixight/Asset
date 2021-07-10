@@ -1,0 +1,58 @@
+﻿@model IEnumerable<ApplicationUser>
+
+@*<div class="bg-primary panel-body">
+    <h4>
+        User Accounts
+    </h4>
+</div>*@
+
+<div class="text-danger" asp-validation-summary="ModelOnly"></div>
+<div class="content container-fluid">
+    <div class="card-box m-b-0 panel panel-danger" style="margin-top:20px">
+        <div class="row">
+            <div class="col-xs-4">
+                <h4 class="page-title">User Accounts</h4>
+            </div>
+            <div class="col-xs-8 text-right m-b-30">
+                <a class="btn btn-primary pull-right rounded"  asp-action="Create"><i class="fa fa-plus"></i> Add User</a>
+                <div class="view-icons">
+                    <a href="employees.html" class="grid-view btn btn-link"><i class="fa fa-th"></i></a>
+                    <a href="employees-list.html" class="list-view btn btn-link active"><i class="fa fa-bars"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-striped custom-table datatable" id="example">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                            </tr>
+                        <thead>
+                      
+    
+   
+        @foreach (var user in Model)
+        {
+                            <tr>
+                                <td>@user.Id</td>
+                                <td>@user.UserName</td>
+                                <td>@user.Email</td>
+                                <td>
+                                    <a class="btn btn-success" asp-controller="SuperAdmin" asp-action="Edit" asp-route-id="@user.Id">Edit</a>
+                                    <a class="btn btn-danger" asp-controller="SuperAdmin" asp-action="Delete" asp-route-id="@user.Id">Delete</a>
+                                </td>
+                            </tr>
+        }
+   
+                    </table>
+
+                    <a class="btn btn-primary" asp-controller="Home" asp-action="Index">Home</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

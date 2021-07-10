@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"]</title>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+    <link rel="shortcut icon" type="image/x-icon" href="~/assets/img/favicon.ico">
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+
+    <!-- ================== BEGIN BASE CSS STYLE ================== -->
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+    <link href="~/assets1/css/default/app.min.css" rel="stylesheet" />
+    @*<link rel="stylesheet" type="text/css" href="~/sweetAlert/sweetalert.css" />*@
+    <script src="~/assets1/js/jquery-3.3.1.min.js"></script>
+    @*<script src="~/sweetAlert/sweetalert.min.js"></script>*@
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+</head>
+<body class="pace-top">
+    @Html.PartialAsync("_NotificationPanel")
+    @RenderBody()
+
+    <!-- ================== END PAGE LEVEL JS ================== -->
+    <script src="~/assets1/js/app.min.js"></script>
+    <script src="~/assets1/js/theme/default.min.js"></script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

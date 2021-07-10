@@ -1,0 +1,60 @@
+﻿@model List<Asset.Web.Models.NavigationMenu>
+<div id="sidebar-menu" class="sidebar-menu">
+    <ul>
+        <li>
+            <a href="index.html">Dashboard</a>
+        </li>
+
+
+        @*Menu Items from the database*@
+        @foreach (var item in Model)
+        {
+
+            if (item.ParentMenuId == null) //Level one items will have null parent id
+            {
+
+                if (!string.IsNullOrWhiteSpace(item.ControllerName))
+                {
+
+                    <li class="nav-item active">
+                        <a class="nav-link text" asp-area="@item.Area" asp-controller="@item.ControllerName" asp-action="@item.ActionName">@item.Name</a>
+                    </li>
+
+                }
+                if (item.IsExternal && !string.IsNullOrWhiteSpace(item.ExternalUrl))
+                {
+
+                    <li class="nav-item active">
+                        <a target="_blank" class="nav-link text" href="@item.ExternalUrl">@item.Name</a>
+                    </li>
+
+                }
+                var children = Model.Where(x => x.ParentMenuId == item.Id && x.Visible).OrderBy(x => x.DisplayOrder).ToList();
+                if (children != null)
+                {
+                        <li class="submenu">
+                                      <a href="#" id="dropdown01" class="noti-dot"><span> @item.Name</span> <span class="menu-arrow"></span></a>
+                                        <ul class="list-unstyled" style="display: none;">
+                                                    @foreach (var itm in children)
+                                                    {
+                                                                if (itm.IsExternal && !string.IsNullOrWhiteSpace(itm.ExternalUrl))
+                                                                {
+                                                                    <a target="_blank" class="dropdown-item" href="@itm.ExternalUrl">@itm.Name</a>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <li><a  asp-area="@item.Area" asp-controller="@itm.ControllerName" asp-action="@itm.ActionName"  asp-route-ServiceCode="@itm.ServiceCode">@itm.Name</a></li>
+                                                                    @*<a class="dropdown-item" asp-area="@item.Area" asp-controller="@itm.ControllerName" asp-action="@itm.ActionName">@itm.Name</a>*@
+                                                                }
+                                                    }
+                                         </ul>
+                         </li>
+                    }
+                }
+
+            }
+
+
+    </ul>
+</div>
+        
