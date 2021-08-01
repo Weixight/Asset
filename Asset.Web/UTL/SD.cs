@@ -31,7 +31,7 @@ namespace Asset.Web.UTL
 
     public class Mailkonfig
     {
-        public const string SenderEmail = "Lasg@alphabetallp.com";
+        public const string SenderEmail = "lasginfo@alphabetallp.com";
         public const string EmailPassword = "Alphabeta@123$";
         public const string SMTPhost = "smtp.office365.com";
         public const int port = 587;

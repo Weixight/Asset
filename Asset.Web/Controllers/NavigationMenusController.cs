@@ -72,13 +72,9 @@ namespace OurHr.Controllers
         // GET: NavigationMenus/Create
         // [Authorize("Authorization")]
 
-        [HttpGet]
-      //  [ValidateAntiForgeryToken]
         public IActionResult Create()
         {
-            //var entityType = _context.Model.FindEntityType(typeof(ApplicationDbContext));
-            //var schema = entityType.GetSchema();
-            //var tableName = entityType.GetTableName();
+
             try
             {
                 string mystring = "";
@@ -91,9 +87,9 @@ namespace OurHr.Controllers
                 ViewData["Service"] = new SelectList(_context.ServiceTbl, "ServiceCode", "ServiceName");
                 return View();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-              ViewBag.Error =  ex.Message.ToString();
+                ViewBag.Error = ex.Message.ToString();
                 return View();
             }
         }
@@ -106,17 +102,16 @@ namespace OurHr.Controllers
             {
                 navigationMenu.ControllerName = null;
             }
-            else
-            {
-                string Substring = "Controller";
-                navigationMenu.ControllerName = navigationMenu.ControllerName.Replace(Substring, "");
-            }
             var Exist = _context.AspNetNavigationMenu.FirstOrDefault(J => J.Name == navigationMenu.Name && J.ControllerName == navigationMenu.ControllerName && J.ActionName == navigationMenu.ActionName);
             if (Exist == null)
             {
-                
+                string Substring = "Controller";
+                if (navigationMenu.ControllerName != null)
+                {
+                    navigationMenu.ControllerName = navigationMenu.ControllerName.Replace(Substring, "");
+                }
                 navigationMenu.Id = Guid.NewGuid();
-                //navigationMenu.ActionName = navigationMenu.ControllerName;
+                // navigationMenu.ActionName = navigationMenu.ControllerName;
                 _context.Add(navigationMenu);
                 await _context.SaveChangesAsync();
             }

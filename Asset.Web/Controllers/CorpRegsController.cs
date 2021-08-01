@@ -57,15 +57,18 @@ namespace Asset.Web.Controllers
 
             return Json(result);
         }
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(string Name)
         {
-            if (id == null)
+            if (Name == null)
             {
                 return NotFound();
             }
 
             var corpReg = await _context.corpRegs
-                .FirstOrDefaultAsync(m => m.id == id);
+                .FirstOrDefaultAsync(m => m.Name == Name);
+            corpReg.State = _context.State.FirstOrDefaultAsync(K => K.state_id == Convert.ToInt32(corpReg.State)).Result.state_name;
+            corpReg.LGA = _context.LGA.FirstOrDefaultAsync(K => K.lga_id == Convert.ToInt32(corpReg.LGA)).Result.lga_name;
+
             if (corpReg == null)
             {
                 return NotFound();
@@ -107,26 +110,42 @@ namespace Asset.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(corpReg);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                var Exist = _context.corpRegs.FirstOrDefault(K => K.CACRegno == corpReg.CACRegno);
+                if (Exist == null)
+                {
+                    _context.Add(corpReg);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    ViewBag.Exist = "Corperative Exist";
+                    ViewBag.State = _context.State.ToList();
+                    return View(corpReg);
+                }
             }
             return View(corpReg);
         }
 
         // GET: CorpRegs/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(string Name)
         {
-            if (id == null)
+            if (Name == null)
             {
                 return NotFound();
             }
 
-            var corpReg = await _context.corpRegs.FindAsync(id);
+            var corpReg = await _context.corpRegs.FirstOrDefaultAsync(k=>k.Name==Name);
             if (corpReg == null)
             {
                 return NotFound();
             }
+            ViewBag.State = _context.State.ToList();
+            
+            var lga = _context.LGA.ToList();
+            var MyLga = lga.FirstOrDefault(K => K.lga_id ==Convert.ToInt32(corpReg.LGA));
+            ViewBag.Lga = lga;
+            ViewBag.MyLga = MyLga;
             return View(corpReg);
         }
 
@@ -166,15 +185,15 @@ namespace Asset.Web.Controllers
         }
 
         // GET: CorpRegs/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(string Name)
         {
-            if (id == null)
+            if (Name == null)
             {
                 return NotFound();
             }
 
             var corpReg = await _context.corpRegs
-                .FirstOrDefaultAsync(m => m.id == id);
+                .FirstOrDefaultAsync(m => m.Name == Name);
             if (corpReg == null)
             {
                 return NotFound();
@@ -186,10 +205,10 @@ namespace Asset.Web.Controllers
         // POST: CorpRegs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(string Name)
         {
-            var corpReg = await _context.corpRegs.FindAsync(id);
-            _context.corpRegs.Remove(corpReg);
+            var corpReg = await _context.corpRegs.FirstOrDefaultAsync(k=>k.Name ==Name);
+             _context.corpRegs.Remove(corpReg);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

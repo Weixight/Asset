@@ -32,7 +32,10 @@ namespace Asset.Web.Controllers
         private readonly ApplicationDbContext _db;
         [Obsolete]
         private readonly IHostingEnvironment _hostingEnv;
-      
+        // private readonly IHostingEnvironment _hostingEnvironment;
+       // private readonly MyMenu _myMenu;
+        // private HRM.UTL.SMSMd sdsms = new SMSMd();
+        //  private UtilityCls UtMail = new UtilityCls();
         private readonly RoleManager<IdentityRole> _roleManager;
 
 
@@ -48,16 +51,18 @@ namespace Asset.Web.Controllers
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IEmailSenderm emailSender,
-            ILogger<AccountController> logger, ApplicationDbContext db,  RoleManager<IdentityRole> roleManager,IHostingEnvironment hostingEnv)
+           // MyMenu myMenu,
+            ILogger<AccountController> logger, ApplicationDbContext db, RoleManager<IdentityRole> roleManager, IHostingEnvironment hostingEnv)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
-          //  _hostingEnv = hostingEnv;
+            //  _hostingEnv = hostingEnv;
             _logger = logger;
             _db = db;
             _roleManager = roleManager;
             _hostingEnv = hostingEnv;
+           // _myMenu = myMenu;
             // UCL = UCL;
         }
 
@@ -70,7 +75,7 @@ namespace Asset.Web.Controllers
         {
             // Clear the existing external cookie to ensure a clean login process
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
-            if(TempData["Disable"]?.ToString()!=null)
+            if (TempData["Disable"]?.ToString() != null)
             {
                 ViewBag.LogError = TempData["Disable"].ToString();
             }
@@ -109,25 +114,17 @@ namespace Asset.Web.Controllers
         //        // return View();
         //    }
         //}
-        ////[Authorize(Roles = SD.AdminEndUser)]
-        //public IActionResult StaffProfile(string id)
-        //{
-        //    {
+        //[Authorize(Roles = SD.AdminEndUser)]
+        public IActionResult StaffProfile(string id)
+        {
+            {
 
-        //        HrCllection HrempDetail = new HrCllection()
-        //        {
-        //            GetEmDegrees = _db.EmDegrees.Where(x => x.EmpEmail == HttpContext.Session.GetString("LogSession")).ToList(),
-        //           // NewUserr = _db.NewUsers.SingleOrDefault(x => x.EmpId == id),
-        //            GetEmpTbls = _db.EmpTbls.Where(m => m.Email == id).ToList(),
-        //            GetEmpPros = _db.empPros.Where(x => x.EmpEmail == id).ToList(),
-        //            GetWorks = _db.EmpExp.Where(x => x.EmpEmail == id).ToList(),
-        //            GetEmpChildren = _db.EmpChildren.Where(x => x.EmpEmail == id).ToList(),
-        //        };
-        //        return View(HrempDetail);
-        //    }
-        //}
+               
+                return View();
+            }
+        }
 
-        //[HttpPost]
+        [HttpPost]
         //[Authorize(Roles = SD.AdminEndUser)]
         ////  [ValidateAntiForgeryToken]
         //public async Task<IActionResult> StaffProfile(HrCllection HrmAuth, string MyEmail, string returnUrl = null)
@@ -203,19 +200,10 @@ namespace Asset.Web.Controllers
 
 
         //            var ZSubjet = "Good";
-        //          //  UtilityCls sender = new UtilityCls();
-        //           // sender.SendHtmlFormattedEmail(HrmAuth.EmpTbls.Email, ZSubjet, body);
+        //            //  UtilityCls sender = new UtilityCls();
+        //            // sender.SendHtmlFormattedEmail(HrmAuth.EmpTbls.Email, ZSubjet, body);
 
-        //            HrCllection HrempDetail = new HrCllection()
-        //            {
-        //                GetEmDegrees = _db.EmDegrees.Where(x => x.EmpEmail == HrmAuth.EmpTbls.Email).ToList(),
-        //               // NewUserr = _db.NewUsers.SingleOrDefault(x => x.EmpId == HrmAuth.EmpTbls.EmpId),
-        //                GetEmpTbls = _db.EmpTbls.Where(m => m.EmpId == HrmAuth.EmpTbls.EmpId).ToList(),
-        //                GetEmpPros = _db.empPros.Where(x => x.EmpEmail == HrmAuth.EmpTbls.Email).ToList(),
-        //                GetWorks = _db.EmpExp.Where(x => x.EmpEmail == HrmAuth.EmpTbls.Email).ToList(),
-        //                GetEmpChildren = _db.EmpChildren.Where(x => x.EmpEmail == HrmAuth.EmpTbls.Email).ToList(),
 
-        //            };
 
         //            ViewBag.Suceed = "The User has been Created Sussfully, and initial Password send to user email";
         //            return View(HrempDetail);
@@ -225,19 +213,10 @@ namespace Asset.Web.Controllers
 
         //        else
         //        {
-        //            HrCllection HrempDetail = new HrCllection()
-        //            {
-        //                GetEmDegrees = _db.EmDegrees.Where(x => x.EmpEmail == HrmAuth.EmpTbls.Email).ToList(),
-        //               // NewUserr = _db.NewUsers.SingleOrDefault(x => x.EmpId == HrmAuth.EmpTbls.EmpId),
-        //                GetEmpTbls = _db.EmpTbls.Where(m => m.EmpId == HrmAuth.EmpTbls.EmpId).ToList(),
-        //                GetEmpPros = _db.empPros.Where(x => x.EmpEmail == HrmAuth.EmpTbls.Email).ToList(),
-        //                GetWorks = _db.EmpExp.Where(x => x.EmpEmail == HrmAuth.EmpTbls.Email).ToList(),
-        //                GetEmpChildren = _db.EmpChildren.Where(x => x.EmpEmail == HrmAuth.EmpTbls.Email).ToList(),
 
-        //            };
 
         //            ViewBag.Suceed = "The User has already been profile, please request for password reset";
-        //            return View(HrempDetail);
+        //            return View();
         //        }
 
 
@@ -255,33 +234,114 @@ namespace Asset.Web.Controllers
 
         [HttpGet]
 
-        public async Task<IActionResult> ChangePassword(string userid, string email, string token, string pass)
+        public IActionResult ChangePassword(string userid, string email, string token, string pass)
         {
-            
+
             ViewBag.Message = "Email confirmed successfully!";
             ViewBag.Email = TempData["Email"]?.ToString();
             return View();
-           
+
         }
 
 
         [HttpPost]
-        public async Task<IActionResult> ChangeUserPasswordAsync(HrCllection NewPass, string email)
+        public async Task<IActionResult> ChangePassword(HrCllection NewPass, string email)
         {
-            ApplicationUser User = new ApplicationUser();
-            var user = await _userManager.FindByEmailAsync(NewPass.changePasswordViewModel.Email);
-            var result = await _userManager.ChangePasswordAsync(user, NewPass.changePasswordViewModel.OldPassword, NewPass.changePasswordViewModel.NewPassword);
-            if (result.Succeeded)
+            try
             {
-                TempData["Success"] = "Password Changed Successfully";
-                return RedirectToAction("Success", "Account");
+                if (ModelState.IsValid)
+                {
+                    ApplicationUser User = new ApplicationUser();
+                    var user = await _userManager.FindByEmailAsync(NewPass.changePasswordViewModel.Email);
+                    if (user == null)
+                    {
+                        return RedirectToAction("");
+                    }
+
+                    else
+                    {
+                        NewPass.changePasswordViewModel.OldPassword = "Password2$";
+                        var result = await _userManager.ChangePasswordAsync(user, NewPass.changePasswordViewModel.OldPassword, NewPass.changePasswordViewModel.NewPassword);
+                        if (!result.Succeeded)
+                        {
+                            foreach (var error in result.Errors)
+                            {
+                                ModelState.AddModelError(string.Empty, error.Description);
+                            }
+                            TempData["Email"] = email;
+                            return RedirectToAction("ChangePassword", "account");
+                        }
+
+                        else
+                        {
+                            var usermail = await _userManager.FindByIdAsync(user.Id);
+                            if (usermail != null)
+                            {
+                                // var firm = await _userManager.ConfirmEmailAsync(user, NewPass.MyPass.Token);
+                                return RedirectToAction("Login", "account");
+                            }
+
+                            else
+                            {
+                                ViewBag.Error = $"The userID {NewPass.MyPass.UserId} is invalid";
+                                return View("Not Found");
+                            }
+
+
+                        }
+                    }
+
+                    // Don't reveal that the user does not exist
+                    // return RedirectToAction(nameof(ResetPasswordConfirmation));
+                }
+                //else
+                //{
+                //    var user = await _userManager.FindByEmailAsync(User);
+                //    if (user == null)
+                //    {
+
+                //    }
+
+                //    else
+                //    {
+
+                //        var newPassword = _userManager.PasswordHasher.HashPassword(user, User.Password);
+                //        user.PasswordHash = newPassword;
+                //        var res = await _userManager.UpdateAsync(user);
+                //        //var CurrPassCrpt = UTL.UtilityCls.EncodeBase64(ResetChange.CurrentPassword, "");
+                //        // byte[] byt = System.Text.Encoding.UTF8.GetBytes(ResetChange.CurrentPassword);
+                //        //byte[] bytm = System.Text.Encoding.UTF8.GetBytes(ResetChange.CurrentPassword);
+
+                //        // var ConfPassCrypt = UTL.UtilityCls.FunForEncrypt(ResetChange.ConfirmPassword, "");
+                //        // var result = await _userManager.ChangePasswordAsync(user, "", "");
+                //        if (res.Succeeded)
+                //        {
+                //            return RedirectToAction(nameof(ResetPasswordConfirmation));
+                //        }
+
+                //        else
+                //        {
+
+                //        }
+
+                //    }
+
+
+                //}
+
+
+
+
             }
-            else
+
+            catch (Exception Ex)
             {
-                ViewBag.Error = "Password Fail";
-                return View(NewPass);
+
             }
+
+            return View();
         }
+
 
 
 
@@ -312,12 +372,12 @@ namespace Asset.Web.Controllers
         }
         [HttpPost]
 
-        public async Task<IActionResult> ChangeUserPasswordA(HrCllection NewPass, string email)
+        public async Task<IActionResult> ChangeUserPasswordAsync(HrCllection NewPass, string email)
         {
             ApplicationUser User = new ApplicationUser();
             var user = await _userManager.FindByEmailAsync(NewPass.changePasswordViewModel.Email);
             var result = await _userManager.ChangePasswordAsync(user, NewPass.changePasswordViewModel.OldPassword, NewPass.changePasswordViewModel.NewPassword);
-            if(result.Succeeded)
+            if (result.Succeeded)
             {
                 TempData["Success"] = "Password Changed Successfully";
                 return RedirectToAction("Success", "Account");
@@ -340,57 +400,160 @@ namespace Asset.Web.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
         {
-
-            ApplicationUser user = await _userManager.FindByEmailAsync(model.Email);
-
-            if (user != null)
+            try
             {
 
-                var result = await _signInManager.PasswordSignInAsync(user, model.Password, false, false);
-                var loginUser = await _userManager.FindByEmailAsync(model.Email);
-                if (loginUser == null)
+                ApplicationUser user = await _userManager.FindByEmailAsync(model.Email);
+
+                if (user != null)
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid username/password.");
-                    return View();
+
+                    var result = await _signInManager.PasswordSignInAsync(user, model.Password, false, false);
+                    var loginUser = await _userManager.FindByEmailAsync(model.Email);
+                    if (loginUser == null)
+                    {
+                        ModelState.AddModelError(string.Empty, "Invalid username/password.");
+                        return View();
+                    }
+                    if (result.Succeeded == true)
+                    {
+
+                        HttpContext.Session.SetString("LogSession", model.Email);
+                       
+
+
+                      
+                       
+
+                        //var MyMenu = _myMenu.Menus();
+                        //HttpContext.Session.SetString("Menu", MyMenu);
+                        return RedirectToAction("Index", "Home");
+                    }
+
+                    else if (result.Succeeded == false)
+                    {
+                        ViewBag.Error = "Password fail";
+                        TempData["Invalid"] = "Invalid user or password";
+                        return View(model);
+                    }
+
+
+                    else
+                    {
+                        ViewBag.Error = "Password fail";
+                        TempData["Invalid"] = "Invalid user or password";
+                        return RedirectToAction("Login", "Account");
+                        // ModelState.AddModelError(nameof(model.Email), "Invalid user or password");
+                    }
+
+                    // If we got this far, something failed, redisplay form
+                    //return View(model);
                 }
-               // await _userManager.UpdateSecurityStampAsync(loginUser);
-                if (result.Succeeded == true)
+
+                return View();
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = ex.Message.ToString();
+                return View(model);
+            }
+        }
+        [HttpPost]
+        [AllowAnonymous]
+        //[ValidateAntiForgeryToken]
+        public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.FindByEmailAsync(model.Email);
+                if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
                 {
-                    //if(result.IsLockedOut == false)
-                    //{
-                    //    TempData["Disable"] = "Account Suspended";
-                    //    return RedirectToAction("Login");
-                    //}
-                    HttpContext.Session.SetString("LogSession", model.Email);
-                  
-
-                  
-                    //  HttpContext.Session.obj("LogSession", model.Email);
-                    return RedirectToAction("Index", "Home");
+                    // Don't reveal that the user does not exist or is not confirmed
+                    return RedirectToAction(nameof(ForgotPasswordConfirmation));
                 }
 
-                else if (result.Succeeded == false)
+                // For more information on how to enable account confirmation and password reset please
+                // visit https://go.microsoft.com/fwlink/?LinkID=532713
+                var code = await _userManager.GeneratePasswordResetTokenAsync(user);
+                // string confirmationLink = Url.Action("ConfirmEmail", "Account", new { userid = user.Id, token = code, email = user.Email }, protocol: HttpContext.Request.Scheme);
+                //var callbackUrl = Url.ResetPasswordCallbackLink(user.Id, code, Request.Scheme);
+                // var callbackUrl = Url.Action("ResetPassword", "Account", user.Id, code, Request.Scheme);
+                string confirmationLink = Url.Action("ResetPassword", "Account", new { userid = user.Id, token = code, email = user.Email }, protocol: HttpContext.Request.Scheme);
+                string subject = "Reset Password";
+                var webRoot = _hostingEnv.WebRootPath; //get wwwroot Folder  
+
+                //Get TemplateFile located at wwwroot/Templates/EmailTemplate/Register_EmailTemplate.html  
+                var pathToFile = _hostingEnv.WebRootPath
+                        + Path.DirectorySeparatorChar.ToString()
+                        + "Template"
+                        + Path.DirectorySeparatorChar.ToString()
+                        + "EmailTemplate"
+                        + Path.DirectorySeparatorChar.ToString()
+                        + "ActivationLink.html";
+                var builder = new BodyBuilder();
+                using (StreamReader SourceReader = System.IO.File.OpenText(pathToFile))
                 {
-                    ViewBag.Error = "Password fail";
-                    TempData["Invalid"] = "Invalid user or password";
-                    return View(model);
+                    builder.HtmlBody = SourceReader.ReadToEnd();
                 }
-
-
-                else
-                {
-                    ViewBag.Error = "Password fail";
-                    TempData["Invalid"] = "Invalid user or password";
-                    return RedirectToAction("Login", "Account");
-                    // ModelState.AddModelError(nameof(model.Email), "Invalid user or password");
-                }
-
-                // If we got this far, something failed, redisplay form
-                //return View(model);
+                string messageBody = string.Format(builder.HtmlBody,
+                     subject,
+                     String.Format("{0:dddd, d MMMM yyyy}", DateTime.Now),
+                     model.Email,
+                     "",
+                    "",
+                    "",
+                    confirmationLink
+                    );
+                await _emailSender.SendEmailAsync(model.Email, subject, messageBody);
+                // await _emailSender.SendEmailAsync(model.Email, "Reset Password",
+                //  $"Please reset your password by clicking here: <a href='{callbackUrl}'>link</a>");
+                return RedirectToAction(nameof(ForgotPasswordConfirmation));
             }
 
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult ForgotPasswordConfirmation()
+        {
             return View();
         }
+        [AllowAnonymous]
+        public IActionResult ResetPassword(string token, string email)
+        {
+            var model = new ResetPasswordViewModel { Token = token, Email = email };
+            return View(model);
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> ResetPassword(ResetPasswordViewModel resetPassword)
+        {
+            if (!ModelState.IsValid)
+                return View(resetPassword);
+
+            var user = await _userManager.FindByEmailAsync(resetPassword.Email);
+            if (user == null)
+                RedirectToAction("ResetPasswordConfirmation");
+
+            var resetPassResult = await _userManager.ResetPasswordAsync(user, resetPassword.Token, resetPassword.Password);
+            if (!resetPassResult.Succeeded)
+            {
+                foreach (var error in resetPassResult.Errors)
+                    ModelState.AddModelError(error.Code, error.Description);
+                return View();
+            }
+
+            return RedirectToAction("ResetPasswordConfirmation");
+        }
+
+        public IActionResult ResetPasswordConfirmation()
+        {
+            return View();
+        }
+
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> LoginWith2fa(bool rememberMe, string returnUrl = null)
@@ -593,6 +756,7 @@ namespace Asset.Web.Controllers
         // [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
+            HttpContext.Session.Remove("LogSession");
             await _signInManager.SignOutAsync();
             _logger.LogInformation("User logged out.");
             HttpContext.Session.Clear();
@@ -697,7 +861,7 @@ namespace Asset.Web.Controllers
             //return View(result.Succeeded ? "ChangePassword" : "Error");
             //return RedirectToAction("ChangePassword", "account", new { email =user.Email });
             TempData["Email"] = user.UserName;
-            return RedirectToAction("ChangePassword", "account");
+            return RedirectToAction("ChangePassword", "account", new { email = user.Email });
         }
 
         [HttpGet]
@@ -709,76 +873,17 @@ namespace Asset.Web.Controllers
 
 
 
-        [HttpPost]
-        [AllowAnonymous]
-        //[ValidateAntiForgeryToken]
-        public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var user = await _userManager.FindByEmailAsync(model.Email);
-                if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
-                {
-                    // Don't reveal that the user does not exist or is not confirmed
-                    return RedirectToAction(nameof(ForgotPasswordConfirmation));
-                }
+       
 
-                // For more information on how to enable account confirmation and password reset please
-                // visit https://go.microsoft.com/fwlink/?LinkID=532713
-                var code = await _userManager.GeneratePasswordResetTokenAsync(user);
-                var callbackUrl = "";//Url.ResetPasswordCallbackLink(user.Id, code, Request.Scheme);
-                await _emailSender.SendEmailAsync(model.Email, "Reset Password",
-                   $"Please reset your password by clicking here: <a href='{callbackUrl}'>link</a>");
-                return RedirectToAction(nameof(ForgotPasswordConfirmation));
-            }
+      
+        //public IActionResult ResetPasswordConfirmation()
+        //{
+        //    return View();
+        //}
 
-            // If we got this far, something failed, redisplay form
-            return View(model);
-        }
 
-        [HttpGet]
-        [AllowAnonymous]
-        public IActionResult ForgotPasswordConfirmation()
-        {
-            return View();
-        }
 
-        [HttpGet]
-        [AllowAnonymous]
-        public IActionResult ResetPassword(string code = null)
-        {
-            if (code == null)
-            {
-                return RedirectToAction("Login");
-                //throw new ApplicationException("A code must be supplied for password reset.");
-            }
-            var model = new ResetPasswordViewModel { Code = code };
-            return View(model);
-        }
 
-        [HttpPost]
-        [AllowAnonymous]
-        // [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-            var user = await _userManager.FindByEmailAsync(model.Email);
-            if (user == null)
-            {
-                // Don't reveal that the user does not exist
-                return RedirectToAction(nameof(ResetPasswordConfirmation));
-            }
-            var result = await _userManager.ChangePasswordAsync(user, "kxc393-C", "Decay.81$");
-            if (result.Succeeded)
-            {
-                return RedirectToAction(nameof(ResetPasswordConfirmation));
-            }
-            AddErrors(result);
-            return View();
-        }
         [HttpGet]
         public async Task<IActionResult> ResetStaffPassword(string id)
         {
@@ -845,12 +950,6 @@ namespace Asset.Web.Controllers
             var result = task.Result;
         }
 
-        [HttpGet]
-        [AllowAnonymous]
-        public IActionResult ResetPasswordConfirmation()
-        {
-            return View();
-        }
 
 
         [HttpGet]

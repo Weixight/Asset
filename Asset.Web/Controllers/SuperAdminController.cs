@@ -142,7 +142,7 @@ namespace OurHr.Controllers
 
                     var getLastMail = createVm.Email;
                     //_db.ActivationMail.Remove(getLastMail);
-                    createVm.Email = "Weixight1@yahoo.com";
+                    //createVm.Email = "Weixight1@yahoo.com";
                     await _emailSender.SendEmailAsync(createVm.Email, subject, messageBody);
                     activationMail.Email = getLastMail;
                     activationMail.Message = messageBody;

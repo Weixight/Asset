@@ -4,7 +4,95 @@
     ViewData["Title"] = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<script src="~/assets/js/jquery-3.2.1.min.js"></script>
 
+<script type="text/javascript">
+     $(document).ready(function(){
+        getSubCategory();
+         $('#State').change(function () {
+            getSubCategory();
+
+         })
+         $('#DeployToSectId').change(function () {
+
+             if ($("#MyGradeStepId option:selected").text() != "Please select one") {
+                 GetDesignation();
+             }
+
+             else {
+                 alert("Select Grade")
+                 getSubCategory();
+             }
+
+         })
+
+         $('#Generate').click(function (e) {
+             e.preventDefault();
+             if ($("#Company option:selected").text() != "Please select one") {
+                 GetMyStaffId();
+             }
+             else {
+                 alert("Select Company");
+
+             }
+
+         })
+    });
+
+    function getSubCategory() {
+
+        var url = '@Url.Content("~/")' + "CorpRegs/GetLga";
+        var ddlsource = "#State";
+        //alert(ddlsource.val());
+        $.getJSON(url, { CategoryID: $(ddlsource).val() }, function (data) {
+
+            var items = "<option value='" + "@ViewBag.MyLga.lga_id" + "'>" + "@ViewBag.MyLga.lga_name" + "</option>";;
+
+            $.each(data, function (i, subcategory) {
+                items += "<option value='" + subcategory.value + "'>" + subcategory.text + "</option>";
+            });
+            $('#LGA').html(items);
+        })
+
+    }
+
+    function GetDesignation()
+    {
+        var urls = '@Url.Content("~/")' + "HRMAdmin/GetDesignation";
+        var ddlsources = "#DeployToSectId";
+        var ddlsourcesGrade = "#MyGradeStepId";
+        $.getJSON(urls, { CategoryIDs: $(ddlsources).val(), CategoryGrade: $(ddlsourcesGrade).val() }, function (datas) {
+            $("#DesignationName").val(datas);
+
+        })
+    }
+
+    function GetMyStaffId()
+    {
+        var urls = '@Url.Content("~/")' + "HRMAdmin/GenerateStaffNo";
+        var ddlsourcesGenerate = "#Company";
+        $.getJSON(urls, {Generate: $(ddlsourcesGenerate).val() }, function (MyNumber) {
+            $("#StaffNo").val(MyNumber);
+
+        })
+    }
+
+    $(function () {
+        $("form").submit(function () {
+            var DeployToPlace = $("#DeployToPlaceId option:selected").text();
+            $("#DeployToPlace").val(DeployToPlace);
+            //var DesignationName = $("#DesignationId option:selected").text();
+            //$("#DesignationName").val(DesignationName);
+
+            var StaffFunction = $("#MyGradeStepId option:selected").text();
+            $("#StaffFunction").val(StaffFunction);
+
+            var MyGradeStepName = $("#MyGradeStepId option:selected").text();
+            $("#MyGradeStepName").val(MyGradeStepName);
+        });
+    });
+
+</script>
 <<div class="content container-fluid">
 
 
@@ -22,7 +110,8 @@
                 <div class="row">
                     <div class="modal-body">
                         <div class="col-md-12">
-                            <form asp-action="Create">
+                            <div class="alert-danger">@ViewBag.Exist</div>
+                            <form asp-action="Edit">
                                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
@@ -55,8 +144,13 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label asp-for="LGA" class="control-label"></label>
-                                        <select class="select" asp-for="LGA" required asp-items="@(new SelectList(String.Empty,"lga_id", "lga_name"))"></select>
+                                        <select class="form-control floating" asp-for="LGA" required asp-items="@(new SelectList(ViewBag.lga,"lga_id", "lga_name"))">
+                                            @*<option value="@ViewBag.MyLga.lga_id">@ViewBag.MyLga.lga_name</option>*@
+                                        </select>
                                         <span asp-validation-for="LGA" class="text-danger"></span>
+                                        <input type="hidden" id="Lgaid" value=" " />
+                                        <input type="hidden" id="lgaName" />
+                                        <input type="hidden" asp-for="id" />
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-6">

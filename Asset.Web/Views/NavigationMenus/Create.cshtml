@@ -7,6 +7,8 @@
 
 
 <script src="~/assets/js/jquery-3.2.1.min.js"></script>
+
+<script src="~/assets/js/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function(){
         getSubCategory();
@@ -27,7 +29,7 @@
             });
             $('#ActionName').html(items);
         })
-      
+
     }
 </script>
 
@@ -60,109 +62,109 @@
         <div class="row">
 
             <div class="col-md-12">
-                @if(ViewBag.Error == null)
+                @if (ViewBag.Error == null)
                 {
-                
 
-                <div class="col-md-12">
-                    <form asp-action="Create">
-                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                        <div class="form-group col-sm-6">
-                            <label asp-for="Name" class="control-label">Name</label>
-                            <input asp-for="Name" class="form-control" />
-                            <span asp-validation-for="Name" class="text-danger"></span>
-                        </div>
-                        <div class="form-group col-sm-6">
-                            <label asp-for="ParentMenuId" class="control-label">Parent Menu</label>
-                            <select asp-for="ParentMenuId" class="form-control" asp-items="ViewBag.ParentMenuId">
-                                <option value="NULL">Please select one</option>
-                            </select>
-                        </div>
-                        <div class="form-group col-sm-6">
-                            <label asp-for="Area" class="control-label">Area</label>
-                            <input asp-for="Area" class="form-control" />
-                            <span asp-validation-for="Area" class="text-danger"></span>
-                        </div>
-                        <div class="form-group col-sm-6">
-                            <label asp-for="ControllerName" class="control-label"></label>
-                            <select class="select" name="ControllerName" id="ControllerName" asp-items="@(new SelectList(ViewBag.Myclass,"Controller", "Controller"))">
-                                <option>Please select one</option>
-                            </select>
-                            <span asp-validation-for="ControllerName" class="text-danger"></span>
-                        </div>
-                        <div class="form-group col-sm-6">
-                            <label asp-for="ActionName" class="control-label"></label>
-                            <select class="select" name="ActionName" id="ActionName" asp-items="@(new SelectList(String.Empty,"Action", "Action"))">
-                                <option>Please select one</option>
-                            </select>
-                            <input type="hidden" name="Klass" id="Klass" />
-                            <span asp-validation-for="ActionName" class="text-danger"></span>
-                        </div>
 
-                        <div class="form-group col-sm-6">
-                            <label asp-for="ServiceCode" class="control-label"></label>
-                            <select asp-for="ServiceCode" class="form-control" asp-items="ViewBag.Service">
-                                <option value="0">Please select one</option>
-                            </select>
-                            <span asp-validation-for="ServiceCode" class="text-danger"></span>
-                        </div>
-                        <div class="form-group col-sm-6">
-                            <label class="control-label"></label>
-                            <div class="checkbox">
-                                <label>
-                                    <input asp-for="IsExternal" /> @Html.DisplayNameFor(model => model.IsExternal)
-                                </label>
+                    <div class="col-md-12">
+                        <form asp-action="Create">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="form-group col-sm-6">
+                                <label asp-for="Name" class="control-label">Name</label>
+                                <input asp-for="Name" class="form-control" />
+                                <span asp-validation-for="Name" class="text-danger"></span>
                             </div>
-                        </div>
-                        <div class="form-group col-sm-6">
-                            <label asp-for="ExternalUrl" class="control-label"></label>
-                            <input asp-for="ExternalUrl" class="form-control" />
-                            <span asp-validation-for="ExternalUrl" class="text-danger"></span>
-                        </div>
-                        <div class="form-group col-sm-6">
-                            <label asp-for="DisplayOrder" class="control-label"></label>
-                            <input asp-for="DisplayOrder" class="form-control" />
-                            <span asp-validation-for="DisplayOrder" class="text-danger"></span>
-                        </div>
-                        @*<div class="form-group">
-            <div class="checkbox">
-                <label>
-                    <input asp-for="Visible" /> @Html.DisplayNameFor(model => model.Visible)
-                </label>
-            </div>
-        </div>*@
-                    <div class="form-group col-sm-6">
-                        <label class="control-label"></label>
-                        <div class="checkbox">
-                            <label>
-                                <input asp-for="Visible" /> @Html.DisplayNameFor(model => model.Visible)
-                            </label>
-                            <label>
-                                <input asp-for="Read" /> @Html.DisplayNameFor(model => model.Read)
-                            </label>
+                            <div class="form-group col-sm-6">
+                                <label asp-for="ParentMenuId" class="control-label">Parent Menu</label>
+                                <select asp-for="ParentMenuId" class="form-control" asp-items="ViewBag.ParentMenuId">
+                                    <option value="NULL">Please select one</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label asp-for="Area" class="control-label">Area</label>
+                                <input asp-for="Area" class="form-control" />
+                                <span asp-validation-for="Area" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label asp-for="ControllerName" class="control-label"></label>
+                                <select class="form-control" name="ControllerName" id="ControllerName" asp-items="@(new SelectList(ViewBag.Myclass,"Controller", "Controller"))">
+                                    <option>Please select one</option>
+                                </select>
+                                <span asp-validation-for="ControllerName" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label asp-for="ActionName" class="control-label"></label>
+                                <select class="form-control" name="ActionName" id="ActionName" asp-items="@(new SelectList(String.Empty,"Action", "Action"))">
+                                    <option>Please select one</option>
+                                </select>
+                                <input type="hidden" name="Klass" id="Klass" />
+                                <span asp-validation-for="ActionName" class="text-danger"></span>
+                            </div>
 
-                            <label>
-                                <input asp-for="Update" /> @Html.DisplayNameFor(model => model.Update)
-                            </label>
-                            <label>
-                                <input asp-for="Delete" /> @Html.DisplayNameFor(model => model.Delete)
-                            </label>
-                            <label>
-                                <input asp-for="Create" /> @Html.DisplayNameFor(model => model.Create)
-                            </label>
-                        </div>
+                            <div class="form-group col-sm-6">
+                                <label asp-for="ServiceCode" class="control-label"></label>
+                                <select asp-for="ServiceCode" class="form-control" asp-items="ViewBag.Service">
+                                    <option value="0">Please select one</option>
+                                </select>
+                                <span asp-validation-for="ServiceCode" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label class="control-label"></label>
+                                <div class="checkbox">
+                                    <label>
+                                        <input asp-for="IsExternal" /> @Html.DisplayNameFor(model => model.IsExternal)
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label asp-for="ExternalUrl" class="control-label"></label>
+                                <input asp-for="ExternalUrl" class="form-control" />
+                                <span asp-validation-for="ExternalUrl" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label asp-for="DisplayOrder" class="control-label"></label>
+                                <input asp-for="DisplayOrder" class="form-control" />
+                                <span asp-validation-for="DisplayOrder" class="text-danger"></span>
+                            </div>
+                            @*<div class="form-group">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input asp-for="Visible" /> @Html.DisplayNameFor(model => model.Visible)
+                                        </label>
+                                    </div>
+                                </div>*@
+                            <div class="form-group col-sm-6">
+                                <label class="control-label"></label>
+                                <div class="checkbox">
+                                    <label>
+                                        <input asp-for="Visible" /> @Html.DisplayNameFor(model => model.Visible)
+                                    </label>
+                                    <label>
+                                        <input asp-for="Read" /> @Html.DisplayNameFor(model => model.Read)
+                                    </label>
+
+                                    <label>
+                                        <input asp-for="Update" /> @Html.DisplayNameFor(model => model.Update)
+                                    </label>
+                                    <label>
+                                        <input asp-for="Delete" /> @Html.DisplayNameFor(model => model.Delete)
+                                    </label>
+                                    <label>
+                                        <input asp-for="Create" /> @Html.DisplayNameFor(model => model.Create)
+                                    </label>
+                                </div>
 
 
 
+                            </div>
+
+                            <div class="m-t-20 text-center">
+                                <div class="form-group col-sm-12" style="margin-top:20px;">
+                                    <input type="submit" value="Create" class="btn btn-primary btn-lg" />
+                                </div>
+                            </div>
+                        </form>
                     </div>
-
-                        <div class="m-t-20 text-center">
-                            <div class="form-group col-sm-12" style="margin-top:20px;">
-                                <input type="submit" value="Create" class="btn btn-primary btn-lg" />
-                            </div>
-                            </div>
-                    </form>
-                </div>
                 }
                 else
                 {
