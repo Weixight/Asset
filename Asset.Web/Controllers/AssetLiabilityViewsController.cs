@@ -27,6 +27,7 @@ namespace Asset.Web.Controllers
             var Laibilites = _assetLiabilityRun.CorPLiability(Corp).Sum(k => k.Value);
             var NetWorth = Asset - Laibilites;
             ViewBag.NetWorth = NetWorth;
+            ViewBag.Name = Corp;
             ViewBag.Asset = Asset;
             ViewBag.TotalLibaility = Laibilites;
             return View( _assetLiabilityRun.PerCopAssetLiability(Corp));

@@ -31,12 +31,14 @@ namespace Asset.Web.Controllers
                 ViewBag.NonCurrentasset = MyAsset.Where(k => k.Tenure > 12).Sum(k => k.Value);
                 ViewBag.CurrentAsset = MyAsset.Where(k => k.Tenure <= 12).Sum(k => k.Value);
                 ViewBag.Asset = MyAsset.Sum(k => k.Value);
+                ViewBag.Name = Name;
                 return View(await _context.KopAssets.Where(k => k.CorpNName == Name).ToListAsync());
 
             }
             else
             {
                 var MyAsset = _context.KopAssets.Where(k => k.CorpNName == Name).ToList();
+                ViewBag.Name = Name;
                 ViewBag.NonCurrentasset = MyAsset.Where(k => k.Tenure > 12).Sum(k => k.Value);
                 ViewBag.CurrentAsset = MyAsset.Where(k => k.Tenure <= 12).Sum(k => k.Value);
                 ViewBag.Asset = MyAsset.Sum(k => k.Value);

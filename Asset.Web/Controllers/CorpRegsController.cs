@@ -110,7 +110,7 @@ namespace Asset.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var Exist = _context.corpRegs.FirstOrDefault(K => K.CACRegno == corpReg.CACRegno);
+                var Exist = _context.corpRegs.FirstOrDefault(K => K.Name == corpReg.Name);
                 if (Exist == null)
                 {
                     _context.Add(corpReg);

@@ -1,25 +1,31 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using OurHr.Models;
 using OurHr.Models.AccountViewModels;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Hosting;
-
 using System.IO;
 using Microsoft.AspNetCore.Http;
-using Asset.Web.Models;
-using Asset.Web.Data;
-using Asset.Web.Models.TamaViewModel;
-using Asset.Web.Services;
-using Asset.Web.Controllers;
+using System.Text;
 using MimeKit;
+using Asset.Web.Controllers;
+using Asset.Web.Models;
 using Asset.Web.Models.AccountViewModels;
+using Asset.Web.Models.TamaViewModel;
+using Asset.Web.Data;
+using Asset.Web.Services;
 
-namespace Asset.Web.Controllers
+namespace OurHr.Controllers
 {
     //[Authorize]
     // [Route("[controller]/[action]")]
@@ -33,7 +39,6 @@ namespace Asset.Web.Controllers
         [Obsolete]
         private readonly IHostingEnvironment _hostingEnv;
         // private readonly IHostingEnvironment _hostingEnvironment;
-       // private readonly MyMenu _myMenu;
         // private HRM.UTL.SMSMd sdsms = new SMSMd();
         //  private UtilityCls UtMail = new UtilityCls();
         private readonly RoleManager<IdentityRole> _roleManager;
@@ -51,7 +56,6 @@ namespace Asset.Web.Controllers
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IEmailSenderm emailSender,
-           // MyMenu myMenu,
             ILogger<AccountController> logger, ApplicationDbContext db, RoleManager<IdentityRole> roleManager, IHostingEnvironment hostingEnv)
         {
             _userManager = userManager;
@@ -62,7 +66,6 @@ namespace Asset.Web.Controllers
             _db = db;
             _roleManager = roleManager;
             _hostingEnv = hostingEnv;
-           // _myMenu = myMenu;
             // UCL = UCL;
         }
 
@@ -115,124 +118,149 @@ namespace Asset.Web.Controllers
         //    }
         //}
         //[Authorize(Roles = SD.AdminEndUser)]
-        public IActionResult StaffProfile(string id)
-        {
-            {
-
-               
-                return View();
-            }
-        }
-
-        [HttpPost]
-        //[Authorize(Roles = SD.AdminEndUser)]
-        ////  [ValidateAntiForgeryToken]
-        //public async Task<IActionResult> StaffProfile(HrCllection HrmAuth, string MyEmail, string returnUrl = null)
+        //public IActionResult StaffProfile(string id)
         //{
-
-        //    try
         //    {
-        //        string Passm = HRM.UTL.UtilityCls.GenerateRandomPassword();
 
-
-
-
-        //        HrmAuth.EmpTbls = await _db.EmpTbls.FirstOrDefaultAsync(x => x.Email == MyEmail);
-
-
-        //        var user = new ApplicationUser
+        //        HrCllection HrempDetail = new HrCllection()
         //        {
-        //            UserName = HrmAuth.EmpTbls.Email,
-        //            Email = HrmAuth.EmpTbls.Email,
-        //            PasswordHash = Passm,
-        //            FirstName = HrmAuth.EmpTbls.Firstname,
-        //            LastName = HrmAuth.EmpTbls.LastName,
-        //            StaffNo = HrmAuth.EmpTbls.EmpId.ToString(),
-        //            PhoneNumber = HrmAuth.EmpTbls.Phone,
-
+        //            GetEmDegrees = _db.EmDegrees.Where(x => x.EmpEmail == HttpContext.Session.GetString("LogSession")).ToList(),
+        //            // NewUserr = _db.NewUsers.SingleOrDefault(x => x.EmpId == id),
+        //            GetEmpTbls = _db.EmpTbls.Where(m => m.Email == id).ToList(),
+        //            GetEmpPros = _db.empPros.Where(x => x.EmpEmail == id).ToList(),
+        //            GetWorks = _db.EmpExp.Where(x => x.EmpEmail == id).ToList(),
+        //            GetEmpChildren = _db.EmpChildren.Where(x => x.EmpEmail == id).ToList(),
         //        };
-
-        //        var result = await _userManager.CreateAsync(user);
-        //        if (result.Succeeded)
-        //        {
-
-        //            if (!await _roleManager.RoleExistsAsync(SD.CustomerEndUser))
-        //            {
-        //                await _roleManager.CreateAsync(new IdentityRole(SD.CustomerEndUser));
-
-        //                var resultAdmin = await _userManager.AddToRoleAsync(user, SD.CustomerEndUser);
-
-        //                var claim = await _userManager.AddClaimAsync(user, new Claim("IsAdmin", "true"));
-        //            }
-
-
-        //            if (!await _roleManager.RoleExistsAsync(SD.CustmerHOU))
-        //            {
-        //                await _roleManager.CreateAsync(new IdentityRole(SD.CustmerHOU));
-        //            }
-
-        //            if (!await _roleManager.RoleExistsAsync(SD.CustmerHOS))
-        //            {
-        //                await _roleManager.CreateAsync(new IdentityRole(SD.CustmerHOS));
-        //            }
-
-        //            if (!await _roleManager.RoleExistsAsync(SD.CustmerHOD))
-        //            {
-        //                await _roleManager.CreateAsync(new IdentityRole(SD.CustmerHOD));
-        //            }
-
-        //            string description = "Good name";
-        //            string body = string.Empty;
-        //            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-        //            var callbackUrl = Url.EmailConfirmationLink(HrmAuth.EmpTbls.Email, code, Request.Scheme);
-        //            var webRoot = _hostingEnv.WebRootPath;
-        //            var file = System.IO.Path.Combine(webRoot, "profile.html");
-        //            using (StreamReader reader = new StreamReader(file))
-        //            {
-        //                body = reader.ReadToEnd();
-        //            }
-
-        //            body = body.Replace("{UserName}", user.UserName);
-        //            body = body.Replace("{Title}", "");
-        //            body = body.Replace("{Email}", user.Email);
-        //            body = body.Replace("{Pass}", Passm);
-        //            body = body.Replace("{callbackUrl}", callbackUrl);
-
-
-        //            var ZSubjet = "Good";
-        //            //  UtilityCls sender = new UtilityCls();
-        //            // sender.SendHtmlFormattedEmail(HrmAuth.EmpTbls.Email, ZSubjet, body);
-
-
-
-        //            ViewBag.Suceed = "The User has been Created Sussfully, and initial Password send to user email";
-        //            return View(HrempDetail);
-
-        //        }
-
-
-        //        else
-        //        {
-
-
-        //            ViewBag.Suceed = "The User has already been profile, please request for password reset";
-        //            return View();
-        //        }
-
-
-
-
+        //        return View(HrempDetail);
         //    }
-        //    catch (Exception Ex)
-        //    {
-
-        //    }
-
-
-        //    return View();
         //}
 
-        [HttpGet]
+       // [HttpPost]
+       //// [Authorize(Roles = SD.AdminEndUser)]
+       // //  [ValidateAntiForgeryToken]
+       // public async Task<IActionResult> StaffProfile(HrCllection HrmAuth, string MyEmail, string returnUrl = null)
+       // {
+
+       //     try
+       //     {
+       //         string Passm = HRM.UTL.UtilityCls.GenerateRandomPassword();
+
+
+
+
+       //         HrmAuth.EmpTbls = await _db.EmpTbls.FirstOrDefaultAsync(x => x.Email == MyEmail);
+
+
+       //         var user = new ApplicationUser
+       //         {
+       //             UserName = HrmAuth.EmpTbls.Email,
+       //             Email = HrmAuth.EmpTbls.Email,
+       //             PasswordHash = Passm,
+       //             FirstName = HrmAuth.EmpTbls.Firstname,
+       //             LastName = HrmAuth.EmpTbls.LastName,
+       //             PhoneNumber = HrmAuth.EmpTbls.Phone,
+
+       //         };
+
+       //         var result = await _userManager.CreateAsync(user);
+       //         if (result.Succeeded)
+       //         {
+
+       //             if (!await _roleManager.RoleExistsAsync(SD.CustomerEndUser))
+       //             {
+       //                 await _roleManager.CreateAsync(new IdentityRole(SD.CustomerEndUser));
+
+       //                 var resultAdmin = await _userManager.AddToRoleAsync(user, SD.CustomerEndUser);
+
+       //                 var claim = await _userManager.AddClaimAsync(user, new Claim("IsAdmin", "true"));
+       //             }
+
+
+       //             if (!await _roleManager.RoleExistsAsync(SD.CustmerHOU))
+       //             {
+       //                 await _roleManager.CreateAsync(new IdentityRole(SD.CustmerHOU));
+       //             }
+
+       //             if (!await _roleManager.RoleExistsAsync(SD.CustmerHOS))
+       //             {
+       //                 await _roleManager.CreateAsync(new IdentityRole(SD.CustmerHOS));
+       //             }
+
+       //             if (!await _roleManager.RoleExistsAsync(SD.CustmerHOD))
+       //             {
+       //                 await _roleManager.CreateAsync(new IdentityRole(SD.CustmerHOD));
+       //             }
+
+       //             string description = "Good name";
+       //             string body = string.Empty;
+       //             var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+       //             var callbackUrl = Url.EmailConfirmationLink(HrmAuth.EmpTbls.Email, code, Request.Scheme);
+       //             var webRoot = _hostingEnv.WebRootPath;
+       //             var file = System.IO.Path.Combine(webRoot, "profile.html");
+       //             using (StreamReader reader = new StreamReader(file))
+       //             {
+       //                 body = reader.ReadToEnd();
+       //             }
+
+       //             body = body.Replace("{UserName}", user.UserName);
+       //             body = body.Replace("{Title}", "");
+       //             body = body.Replace("{Email}", user.Email);
+       //             body = body.Replace("{Pass}", Passm);
+       //             body = body.Replace("{callbackUrl}", callbackUrl);
+
+
+       //             var ZSubjet = "Good";
+       //             //  UtilityCls sender = new UtilityCls();
+       //             // sender.SendHtmlFormattedEmail(HrmAuth.EmpTbls.Email, ZSubjet, body);
+
+       //             HrCllection HrempDetail = new HrCllection()
+       //             {
+       //                 GetEmDegrees = _db.EmDegrees.Where(x => x.EmpEmail == HrmAuth.EmpTbls.Email).ToList(),
+       //                 // NewUserr = _db.NewUsers.SingleOrDefault(x => x.EmpId == HrmAuth.EmpTbls.EmpId),
+       //                 GetEmpTbls = _db.EmpTbls.Where(m => m.EmpId == HrmAuth.EmpTbls.EmpId).ToList(),
+       //                 GetEmpPros = _db.empPros.Where(x => x.EmpEmail == HrmAuth.EmpTbls.Email).ToList(),
+       //                 GetWorks = _db.EmpExp.Where(x => x.EmpEmail == HrmAuth.EmpTbls.Email).ToList(),
+       //                 GetEmpChildren = _db.EmpChildren.Where(x => x.EmpEmail == HrmAuth.EmpTbls.Email).ToList(),
+
+       //             };
+
+       //             ViewBag.Suceed = "The User has been Created Sussfully, and initial Password send to user email";
+       //             return View(HrempDetail);
+
+       //         }
+
+
+       //         else
+       //         {
+       //             HrCllection HrempDetail = new HrCllection()
+       //             {
+       //                 GetEmDegrees = _db.EmDegrees.Where(x => x.EmpEmail == HrmAuth.EmpTbls.Email).ToList(),
+       //                 // NewUserr = _db.NewUsers.SingleOrDefault(x => x.EmpId == HrmAuth.EmpTbls.EmpId),
+       //                 GetEmpTbls = _db.EmpTbls.Where(m => m.EmpId == HrmAuth.EmpTbls.EmpId).ToList(),
+       //                 GetEmpPros = _db.empPros.Where(x => x.EmpEmail == HrmAuth.EmpTbls.Email).ToList(),
+       //                 GetWorks = _db.EmpExp.Where(x => x.EmpEmail == HrmAuth.EmpTbls.Email).ToList(),
+       //                 GetEmpChildren = _db.EmpChildren.Where(x => x.EmpEmail == HrmAuth.EmpTbls.Email).ToList(),
+
+       //             };
+
+       //             ViewBag.Suceed = "The User has already been profile, please request for password reset";
+       //             return View(HrempDetail);
+       //         }
+
+
+
+
+       //     }
+       //     catch (Exception Ex)
+       //     {
+
+       //     }
+
+
+       //     return View();
+       // }
+
+       [HttpGet]
 
         public IActionResult ChangePassword(string userid, string email, string token, string pass)
         {
@@ -419,14 +447,33 @@ namespace Asset.Web.Controllers
                     {
 
                         HttpContext.Session.SetString("LogSession", model.Email);
-                       
+                        try
+                        {
+                            HttpContext.Session.SetString("FirstName", loginUser.FirstName);
+                        }
+                        catch
+                        {
+
+                        }
+                        try
+                        {
+                            HttpContext.Session.SetString("LastName", loginUser.LastName);
+                        }
+                        catch
+                        {
+
+                        }
+                        try
+                        {
+                            HttpContext.Session.SetString("OtherName", loginUser.OtherName);
+                        }
+                        catch
+                        {
+
+                        }
 
 
                       
-                       
-
-                        //var MyMenu = _myMenu.Menus();
-                        //HttpContext.Session.SetString("Menu", MyMenu);
                         return RedirectToAction("Index", "Home");
                     }
 
@@ -458,102 +505,6 @@ namespace Asset.Web.Controllers
                 return View(model);
             }
         }
-        [HttpPost]
-        [AllowAnonymous]
-        //[ValidateAntiForgeryToken]
-        public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var user = await _userManager.FindByEmailAsync(model.Email);
-                if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
-                {
-                    // Don't reveal that the user does not exist or is not confirmed
-                    return RedirectToAction(nameof(ForgotPasswordConfirmation));
-                }
-
-                // For more information on how to enable account confirmation and password reset please
-                // visit https://go.microsoft.com/fwlink/?LinkID=532713
-                var code = await _userManager.GeneratePasswordResetTokenAsync(user);
-                // string confirmationLink = Url.Action("ConfirmEmail", "Account", new { userid = user.Id, token = code, email = user.Email }, protocol: HttpContext.Request.Scheme);
-                //var callbackUrl = Url.ResetPasswordCallbackLink(user.Id, code, Request.Scheme);
-                // var callbackUrl = Url.Action("ResetPassword", "Account", user.Id, code, Request.Scheme);
-                string confirmationLink = Url.Action("ResetPassword", "Account", new { userid = user.Id, token = code, email = user.Email }, protocol: HttpContext.Request.Scheme);
-                string subject = "Reset Password";
-                var webRoot = _hostingEnv.WebRootPath; //get wwwroot Folder  
-
-                //Get TemplateFile located at wwwroot/Templates/EmailTemplate/Register_EmailTemplate.html  
-                var pathToFile = _hostingEnv.WebRootPath
-                        + Path.DirectorySeparatorChar.ToString()
-                        + "Template"
-                        + Path.DirectorySeparatorChar.ToString()
-                        + "EmailTemplate"
-                        + Path.DirectorySeparatorChar.ToString()
-                        + "ActivationLink.html";
-                var builder = new BodyBuilder();
-                using (StreamReader SourceReader = System.IO.File.OpenText(pathToFile))
-                {
-                    builder.HtmlBody = SourceReader.ReadToEnd();
-                }
-                string messageBody = string.Format(builder.HtmlBody,
-                     subject,
-                     String.Format("{0:dddd, d MMMM yyyy}", DateTime.Now),
-                     model.Email,
-                     "",
-                    "",
-                    "",
-                    confirmationLink
-                    );
-                await _emailSender.SendEmailAsync(model.Email, subject, messageBody);
-                // await _emailSender.SendEmailAsync(model.Email, "Reset Password",
-                //  $"Please reset your password by clicking here: <a href='{callbackUrl}'>link</a>");
-                return RedirectToAction(nameof(ForgotPasswordConfirmation));
-            }
-
-            // If we got this far, something failed, redisplay form
-            return View(model);
-        }
-
-        [HttpGet]
-        [AllowAnonymous]
-        public IActionResult ForgotPasswordConfirmation()
-        {
-            return View();
-        }
-        [AllowAnonymous]
-        public IActionResult ResetPassword(string token, string email)
-        {
-            var model = new ResetPasswordViewModel { Token = token, Email = email };
-            return View(model);
-        }
-
-        [HttpPost]
-        [AllowAnonymous]
-        public async Task<IActionResult> ResetPassword(ResetPasswordViewModel resetPassword)
-        {
-            if (!ModelState.IsValid)
-                return View(resetPassword);
-
-            var user = await _userManager.FindByEmailAsync(resetPassword.Email);
-            if (user == null)
-                RedirectToAction("ResetPasswordConfirmation");
-
-            var resetPassResult = await _userManager.ResetPasswordAsync(user, resetPassword.Token, resetPassword.Password);
-            if (!resetPassResult.Succeeded)
-            {
-                foreach (var error in resetPassResult.Errors)
-                    ModelState.AddModelError(error.Code, error.Description);
-                return View();
-            }
-
-            return RedirectToAction("ResetPasswordConfirmation");
-        }
-
-        public IActionResult ResetPasswordConfirmation()
-        {
-            return View();
-        }
-
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> LoginWith2fa(bool rememberMe, string returnUrl = null)
@@ -873,13 +824,101 @@ namespace Asset.Web.Controllers
 
 
 
-       
+        [HttpPost]
+        [AllowAnonymous]
+        //[ValidateAntiForgeryToken]
+        public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.FindByEmailAsync(model.Email);
+                if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
+                {
+                    // Don't reveal that the user does not exist or is not confirmed
+                    return RedirectToAction(nameof(ForgotPasswordConfirmation));
+                }
 
-      
-        //public IActionResult ResetPasswordConfirmation()
-        //{
-        //    return View();
-        //}
+                // For more information on how to enable account confirmation and password reset please
+                // visit https://go.microsoft.com/fwlink/?LinkID=532713
+                var code = await _userManager.GeneratePasswordResetTokenAsync(user);
+                // string confirmationLink = Url.Action("ConfirmEmail", "Account", new { userid = user.Id, token = code, email = user.Email }, protocol: HttpContext.Request.Scheme);
+                //var callbackUrl = Url.ResetPasswordCallbackLink(user.Id, code, Request.Scheme);
+                // var callbackUrl = Url.Action("ResetPassword", "Account", user.Id, code, Request.Scheme);
+                string confirmationLink = Url.Action("ResetPassword", "Account", new { userid = user.Id, token = code, email = user.Email }, protocol: HttpContext.Request.Scheme);
+                string subject = "Reset Password";
+                var webRoot = _hostingEnv.WebRootPath; //get wwwroot Folder  
+
+                //Get TemplateFile located at wwwroot/Templates/EmailTemplate/Register_EmailTemplate.html  
+                var pathToFile = _hostingEnv.WebRootPath
+                        + Path.DirectorySeparatorChar.ToString()
+                        + "Template"
+                        + Path.DirectorySeparatorChar.ToString()
+                        + "EmailTemplate"
+                        + Path.DirectorySeparatorChar.ToString()
+                        + "ActivationLink.html";
+                var builder = new BodyBuilder();
+                using (StreamReader SourceReader = System.IO.File.OpenText(pathToFile))
+                {
+                    builder.HtmlBody = SourceReader.ReadToEnd();
+                }
+                string messageBody = string.Format(builder.HtmlBody,
+                     subject,
+                     String.Format("{0:dddd, d MMMM yyyy}", DateTime.Now),
+                     model.Email,
+                     "",
+                    "",
+                    "",
+                    confirmationLink
+                    );
+                await _emailSender.SendEmailAsync(model.Email, subject, messageBody);
+                // await _emailSender.SendEmailAsync(model.Email, "Reset Password",
+                //  $"Please reset your password by clicking here: <a href='{callbackUrl}'>link</a>");
+                return RedirectToAction(nameof(ForgotPasswordConfirmation));
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult ForgotPasswordConfirmation()
+        {
+            return View();
+        }
+        [AllowAnonymous]
+        public IActionResult ResetPassword(string token, string email)
+        {
+            var model = new ResetPasswordViewModel { Token = token, Email = email };
+            return View(model);
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> ResetPassword(ResetPasswordViewModel resetPassword)
+        {
+            if (!ModelState.IsValid)
+                return View(resetPassword);
+
+            var user = await _userManager.FindByEmailAsync(resetPassword.Email);
+            if (user == null)
+                RedirectToAction("ResetPasswordConfirmation");
+
+            var resetPassResult = await _userManager.ResetPasswordAsync(user, resetPassword.Token, resetPassword.Password);
+            if (!resetPassResult.Succeeded)
+            {
+                foreach (var error in resetPassResult.Errors)
+                    ModelState.AddModelError(error.Code, error.Description);
+                return View();
+            }
+
+            return RedirectToAction("ResetPasswordConfirmation");
+        }
+
+        public IActionResult ResetPasswordConfirmation()
+        {
+            return View();
+        }
 
 
 

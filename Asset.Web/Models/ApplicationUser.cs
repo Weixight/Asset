@@ -14,6 +14,9 @@ namespace Asset.Web.Models
         //public string UserName { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
+        [NotMapped]
+        public string? OtherName { get; set; }
+        [NotMapped]
         public string? StaffNo { get; set; }
         [NotMapped]
         public string PID { get; set; }

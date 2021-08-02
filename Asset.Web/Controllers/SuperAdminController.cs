@@ -40,6 +40,7 @@ namespace OurHr.Controllers
             Email = "testForPassword@test.test"
         };
 
+        [Obsolete]
         public SuperAdminController(UserManager<ApplicationUser> userMgr,
             IUserValidator<ApplicationUser> userValid, IPasswordValidator<ApplicationUser> passValid,
             IPasswordHasher<ApplicationUser> passHasher, ILogger<AccountController> logger, SignInManager<ApplicationUser> signInManager,

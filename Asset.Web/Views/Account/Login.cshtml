@@ -12,9 +12,9 @@
 <div class="login login-with-news-feed">
     <!-- begin news-feed -->
     <div class="news-feed">
-        <div class="news-image" style="background-image: url(../assets/img/MyAsset.jpg)"></div>
+        <div class="news-image" style="        background-image: url(../assets/img/MyAsset.jpg)"></div>
         <div class="news-caption">
-            <h4 class="caption-title"><b>GTI - Cooperative Asset Managment </b> </h4>
+            <h4 class="caption-title"><b>ALPHABETA - Enterprise </b> </h4>
 
         </div>
     </div>
@@ -24,14 +24,14 @@
         <!-- begin login-header -->
         <div class="login-header">
             <div class="brand">
-                @*<span class="logo"></span> <b></b> Login*@
+                <span class="logo"></span> <b></b> Login
             </div>
         </div>
         <!-- end login-header -->
         <!-- begin login-content -->
         <div class="login-content">
             <p><b>@ViewBag.Error</b></p>
-            <form asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="login100-form">
+            <form asp-route-returnurl="@ViewData["ReturnUrl"]"  method="post" class="login100-form">
                 @if (ViewBag.msg != "")
                 {
                     <div class="col-sm-12" style="margin-top: -15px; padding-left: 0px; padding-right: 0px; margin-bottom: 0px;">
@@ -73,8 +73,8 @@
                         <button class="btn btn-primary btn-lg" style=" width:100%; color:white;"><b>Login</b></button>
                     </div>
                     <div class="m-t-20" style="margin-bottom:75px;">
-                        Forget Password? Click <a asp-controller="Account" asp-action="ForgotPassword">here</a> to Reset Password<br />
-                    </div>
+            Forget Password? Click <a asp-controller="Account" asp-action="ForgotPassword">here</a> to Reset Password<br />
+        </div>
 </form>
             <hr />
             <span class="text-center mb-0">

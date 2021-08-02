@@ -31,7 +31,8 @@ namespace Asset.Web.Controllers
                 ViewBag.NonCurrentLiab = MyLiability.Where(k=>k.Tenure>12).Sum(k=>k.Value);
                 ViewBag.CurrentLiab = MyLiability.Where(k => k.Tenure <= 12).Sum(k => k.Value);
                 ViewBag.Liability = MyLiability.Sum(k => k.Value);
-           
+                ViewBag.Name = Name;
+
                 return View(await _context.Liabilities.Where(k=>k.CorpNName ==Name).ToListAsync());
             }
             else

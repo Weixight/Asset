@@ -114,15 +114,16 @@
                             <form asp-action="Create">
                                 <div class="alert-danger">@ViewBag.Exist</div>
                                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                                <div class="col-sm-6">
+                                @*<div class="col-sm-6">
                                     <div class="form-group">
                                         <label asp-for="CopRegNum" class="control-label"></label>
                                         <input asp-for="CopRegNum" class="form-control" />
                                         <span asp-validation-for="CopRegNum" class="text-danger"></span>
                                     </div>
-                                </div>
+                                </div>*@
                                 <div class="form-group col-sm-6">
                                     <div class="form-group">
+                                        <input asp-for="CopRegNum" type="hidden" class="form-control" />
                                         <label asp-for="Name" class="control-label"></label>
                                         <input asp-for="Name" class="form-control" />
                                         <span asp-validation-for="Name" class="text-danger"></span>
