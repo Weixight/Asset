@@ -25,6 +25,8 @@ namespace Asset.Web.Data
         public DbSet<CorpReg> corpRegs { get; set; }
         public DbSet<Assetno> AssetNumber { get; set; }
         public DbSet<MyService> ServiceTbl { get; set; }
+        public DbSet<AverageMaintanableEarnings>  AverageMaintanableEarnings { get; set; }
+        public DbSet<AverageMaintanableEarningsWeighted> AverageMaintanableEarningsWeighteds { get; set; }
 
         public DbSet<NavigationMenu> AspNetNavigationMenu { get; set; }
         public DbSet<RoleMenuPermission> AspNetRoleMenuPermission { get; set; }

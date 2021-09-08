@@ -89,5 +89,84 @@ namespace Asset.Web.Models
             var MyCorpLiability = _db.Liabilities.Where(k => k.CorpNName == CorpName).ToList();
             return MyCorpLiability;
         }
+
+        public List<KopAsset> AllCorpAsset ()
+        {
+            List<CorpReg> CorpList = new List<CorpReg>();
+            List<KopAsset> kopAsseList = new List<KopAsset>();
+            CorpList = _db.corpRegs.ToList();
+            foreach(var item in CorpList)
+            {
+                var CorpAsset = _db.KopAssets.Where(k => k.CorpNName == item.Name).ToList();
+                kopAsseList.AddRange(CorpAsset);
+            }
+            return kopAsseList;
+        }
+        public List<KopAsset> AllCorpAsset(string Name)
+        {
+            List<KopAsset> kopAsseList = new List<KopAsset>();
+
+            kopAsseList = _db.KopAssets.Where(k => k.CorpNName == Name).ToList();
+            
+            return kopAsseList;
+        }
+        public List<Liability> AllKorpLiability()
+        {
+            List<CorpReg> CorpList = new List<CorpReg>();
+            List<Liability> kopLiabilityList = new List<Liability>();
+            CorpList = _db.corpRegs.ToList();
+            foreach (var item in CorpList)
+            {
+                var CorpAsset = _db.Liabilities.Where(k => k.CorpNName == item.Name).ToList();
+                kopLiabilityList.AddRange(CorpAsset);
+            }
+            return kopLiabilityList;
+        }
+        public List<Liability> AllKorpLiability(string Name)
+        {
+            List<Liability> kopLiabilityList = new List<Liability>();
+
+
+            kopLiabilityList = _db.Liabilities.Where(k => k.CorpNName == Name).ToList();
+                
+            
+            return kopLiabilityList;
+        }
+        public decimal AllTotalAsset()
+        {
+            var Asset = AllCorpAsset().Sum(k=>k.Value);
+
+            return Asset;
+        }
+        public decimal AllTotalAsset(string Name)
+        {
+            var Asset = AllCorpAsset(Name).Sum(k => k.Value);
+
+            return Asset;
+        }
+        
+        public decimal AllTotalLiability()
+        {
+            var Asset = AllKorpLiability().Sum(k => k.Value);
+
+            return Asset;
+        }
+        public decimal AllTotalLiability(string Name)
+        {
+            var Asset = AllKorpLiability(Name).Sum(k => k.Value);
+
+            return Asset;
+        }
+        public decimal AllNetAsset()
+        {
+            var Networt = AllTotalAsset() - AllTotalLiability();
+            return Networt;
+        }
+
+        public decimal AllNetAsset(string Name)
+        {
+            var Networt = AllTotalAsset(Name) - AllTotalLiability(Name);
+            return Networt;
+        }
     }
 }

@@ -16,6 +16,7 @@ namespace Asset.Web.ViewModels
         public string CopAssetRegNo { get; set; }
         public string CorpNName { get; set; }
         public string TenureName { get; set; }
+        public string BasicType { get; set; }
         public int CorpId { get; set; }
         public DateTime AssetDate { get; set; }
     }
