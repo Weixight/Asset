@@ -1,0 +1,136 @@
+﻿@model Asset.Web.Models.AverageMaintanableEarnings
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>AverageMaintanableEarnings</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CorpId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CorpId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CorpName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CorpName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Revenue)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Revenue)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Costofgoodssold)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Costofgoodssold)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Grossprofit)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Grossprofit)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Operatingexpenses)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Operatingexpenses)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Otherexpenses)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Otherexpenses)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Depreciation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Depreciation)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Profitbeforetax)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Profitbeforetax)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Incometaxpaid)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Incometaxpaid)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Profitaftertax)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Profitaftertax)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Year)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Year)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DateCreated)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DateCreated)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DateUpdated)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DateUpdated)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedBy)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CreatedBy)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UpdatedBy)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UpdatedBy)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Month)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Month)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ValueDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ValueDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Weighted)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Weighted)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="id" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

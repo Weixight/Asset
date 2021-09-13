@@ -1,0 +1,114 @@
+﻿@model IEnumerable<Asset.Web.Models.CorpReg>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content container-fluid">
+    <div class="row">
+        <div class="col-md-6 col-sm-6 col-lg-4 ">
+            <div class="dash-widget clearfix card-box bg-success ">
+                <span class="dash-widget-icon"><i class="fa fa-money" aria-hidden="true"></i></span>
+                <div class="dash-widget-info">
+                    @*<h3>&#x20A6;@ViewBag.Asset.ToString("##,###.##")</h3>*@
+                    <span>Total Asset</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-6 col-lg-4">
+            <div class="dash-widget clearfix card-box  bg-danger">
+                <span class="dash-widget-icon"><i class="fa fa-money" aria-hidden="true"></i></span>
+                <div class="dash-widget-info">
+                    @*<h3>&#x20A6;@ViewBag.TotalLibaility.ToString("##,###.##")</h3>*@
+                    <span>Total Liability</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-6 col-lg-4">
+            <div class="dash-widget clearfix card-box bg-primary">
+                <span class="dash-widget-icon"><i class="fa fa-money"></i></span>
+                <div class="dash-widget-info">
+                    @*<h3>&#x20A6;@ViewBag.Networth.ToString("##,###.##")</h3>*@
+                    <span>Net Worth</span>
+                </div>
+            </div>
+        </div>
+        @*<div class="col-md-6 col-sm-6 col-lg-3">
+                <div class="dash-widget clearfix card-box">
+                    <span class="dash-widget-icon"><i class="fa fa-users" aria-hidden="true"></i></span>
+                    <div class="dash-widget-info">
+                        <h3>@ViewBag.users</h3>
+                        <span>Employees</span>
+                    </div>
+                </div>
+            </div>*@
+    </div>
+    <div class="card-box m-b-0 panel panel-danger" style="margin-top:20px">
+        
+
+        <div class="row">
+            <div class="col-md-12">
+                @ViewBag.Exist
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover table-checkable order-column valign-middle" id="example">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.CopRegNum)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Name)
+                                </th>
+                                <th>
+                                    Earning Detail
+                                </th>
+                                <th>
+                                    Earning Detail Weighted
+                                </th>
+                                <th>
+                                   Net Worth
+                                </th>
+
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CopRegNum)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </td>
+                                <td>
+                                    <a  asp-controller="CorpEarningDetails" asp-action="Index" class="btn btn-default fa fa-money-bill"> Earning Detail</a>
+                                </td>
+                                <td>
+                                    <a class="btn btn-default fa fa-bitcoin"> Earning Detail Weighted</a>
+                                </td>
+                                <td>
+                                    <a class="btn btn-default fa fa-money"> Net Worth</a>
+                                </td>
+
+
+                                <td>
+                                    <a asp-action="Edit" class="btn btn-primary fa fa-edit" asp-route-Name="@item.id">Edit</a> |
+                                    <a asp-action="Details" class="btn btn-default fa fa-book-open" asp-route-Name="@item.id">Details</a> |
+                                    <a asp-action="Delete" class="btn btn-danger fa fa-recycle" asp-route-Name="@item.id">Delete</a>
+
+                                    @*<a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
+            <a asp-action="Details" asp-route-id="@item.id">Details</a> |
+            <a asp-action="Delete" asp-route-id="@item.id">Delete</a>*@
+                                </td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

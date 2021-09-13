@@ -1,0 +1,124 @@
+﻿@model Asset.Web.Models.AverageMaintanableEarnings
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create</h2>
+
+<h4>AverageMaintanableEarnings</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="CorpId" class="control-label"></label>
+                <input asp-for="CorpId" class="form-control" />
+                <span asp-validation-for="CorpId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CorpName" class="control-label"></label>
+                <input asp-for="CorpName" class="form-control" />
+                <span asp-validation-for="CorpName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Revenue" class="control-label"></label>
+                <input asp-for="Revenue" class="form-control" />
+                <span asp-validation-for="Revenue" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Costofgoodssold" class="control-label"></label>
+                <input asp-for="Costofgoodssold" class="form-control" />
+                <span asp-validation-for="Costofgoodssold" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Grossprofit" class="control-label"></label>
+                <input asp-for="Grossprofit" class="form-control" />
+                <span asp-validation-for="Grossprofit" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Operatingexpenses" class="control-label"></label>
+                <input asp-for="Operatingexpenses" class="form-control" />
+                <span asp-validation-for="Operatingexpenses" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Otherexpenses" class="control-label"></label>
+                <input asp-for="Otherexpenses" class="form-control" />
+                <span asp-validation-for="Otherexpenses" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Depreciation" class="control-label"></label>
+                <input asp-for="Depreciation" class="form-control" />
+                <span asp-validation-for="Depreciation" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Profitbeforetax" class="control-label"></label>
+                <input asp-for="Profitbeforetax" class="form-control" />
+                <span asp-validation-for="Profitbeforetax" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Incometaxpaid" class="control-label"></label>
+                <input asp-for="Incometaxpaid" class="form-control" />
+                <span asp-validation-for="Incometaxpaid" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Profitaftertax" class="control-label"></label>
+                <input asp-for="Profitaftertax" class="form-control" />
+                <span asp-validation-for="Profitaftertax" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Year" class="control-label"></label>
+                <input asp-for="Year" class="form-control" />
+                <span asp-validation-for="Year" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateCreated" class="control-label"></label>
+                <input asp-for="DateCreated" class="form-control" />
+                <span asp-validation-for="DateCreated" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateUpdated" class="control-label"></label>
+                <input asp-for="DateUpdated" class="form-control" />
+                <span asp-validation-for="DateUpdated" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreatedBy" class="control-label"></label>
+                <input asp-for="CreatedBy" class="form-control" />
+                <span asp-validation-for="CreatedBy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UpdatedBy" class="control-label"></label>
+                <input asp-for="UpdatedBy" class="form-control" />
+                <span asp-validation-for="UpdatedBy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Month" class="control-label"></label>
+                <input asp-for="Month" class="form-control" />
+                <span asp-validation-for="Month" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ValueDate" class="control-label"></label>
+                <input asp-for="ValueDate" class="form-control" />
+                <span asp-validation-for="ValueDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Weighted" class="control-label"></label>
+                <input asp-for="Weighted" class="form-control" />
+                <span asp-validation-for="Weighted" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

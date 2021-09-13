@@ -795,7 +795,7 @@ namespace OurHr.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> ConfirmEmail(string userid, string token)
+        public IActionResult ConfirmEmail(string userid, string token)
         {
             if (userid == null || token == null)
             {

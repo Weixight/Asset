@@ -1,0 +1,76 @@
+﻿@model IEnumerable<Asset.Web.Models.CorpReg>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="content container-fluid">
+    <div class="card-box m-b-0 panel panel-danger" style="margin-top:20px">
+        <div class="row">
+            <div class="col-xs-4">
+
+                <h4 class="page-title">@ViewBag.Name Asset</h4>
+            </div>
+            <div class="col-xs-8 text-right m-b-30">
+                <a asp-action="Create" class="btn btn-primary pull-right rounded"><i class="fa fa-plus"></i> Add Asset</a>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                @ViewBag.Exist
+                <div class="table-responsive">
+                    <table class="table table-striped custom-table datatable" id="example">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.CACRegno)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Name)
+                                </th>
+                               
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CACRegno)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Name)
+                                    </td>
+                                   
+                                    <td>
+                                        @{
+                                            List<OurCorpSetUp> OurCorpConfigSetUp = new List<OurCorpSetUp>();
+
+                                            OurCorpConfigSetUp = ViewBag.SetupExist;
+                                        }
+                                        <a asp-action="Details" asp-controller="CorpEarningSetUps" asp-route-Name="@item.Name" class="btn btn-success">Details</a> |
+                                        @if (OurCorpConfigSetUp.Any(K => K.CorpReg.Name == item.Name))
+                                        {
+                                            <a asp-action="Edit" asp-controller="CorpEarningSetUps" asp-route-Name="@item.Name" class="btn btn-danger" >Edit</a>
+                                        }
+                                        else
+                                        {
+                                            <a asp-action="EditConfigure" asp-controller="CorpEarningSetUps" asp-route-Name="@item.Name" class="btn btn-primary" >Add</a>
+
+                                        }
+
+                                       
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

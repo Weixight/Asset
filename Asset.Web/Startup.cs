@@ -17,6 +17,7 @@ using Asset.Web.Services;
 using Microsoft.AspNetCore.Authorization;
 using Asset.Web.Handlers;
 using OurHr.RoleAuthorization.Models;
+using Asset.Web.ViewModels;
 
 namespace Asset.Web
 {
@@ -68,6 +69,7 @@ namespace Asset.Web
 
             services.AddTransient<IEmailSenderm, AuthMessageSender>();
             services.AddTransient<AssetLiabilityRun>();
+            services.AddTransient<CorpSetUpService>();
             services.Configure<IISOptions>(options =>
             {
                 options.ForwardClientCertificate = false;

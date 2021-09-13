@@ -33,6 +33,7 @@ namespace Asset.Web.Models
         public string RegLGA { get; set; }
         public string? CACRegno { get; set; }
         public string? AssetPrefix { get; set; }
+        public virtual List<CorpEarningSetUp> CorpEarningSetUps { get; set; } = new List<CorpEarningSetUp>();
 
     }
 }

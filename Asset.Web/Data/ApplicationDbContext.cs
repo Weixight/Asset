@@ -14,6 +14,10 @@ namespace Asset.Web.Data
             : base(options)
         {
         }
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    optionsBuilder.UseLazyLoadingProxies();
+        //}
 
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<AssetType> AssetTypes { get; set; }
@@ -25,8 +29,12 @@ namespace Asset.Web.Data
         public DbSet<CorpReg> corpRegs { get; set; }
         public DbSet<Assetno> AssetNumber { get; set; }
         public DbSet<MyService> ServiceTbl { get; set; }
-        public DbSet<AverageMaintanableEarnings>  AverageMaintanableEarnings { get; set; }
+       // public DbSet<AverageMaintanableEarnings>  AverageMaintanableEarnings { get; set; }
         public DbSet<AverageMaintanableEarningsWeighted> AverageMaintanableEarningsWeighteds { get; set; }
+       // public DbSet<CorpEarningSetUp> Earning { get; set; }
+        public DbSet<OurCorpSetUp> OurCorpEarningSetup { get; set; }
+        public DbSet<EarninWeight> EarninWeights { get; set; }
+        public DbSet<Family> families { get; set; }
 
         public DbSet<NavigationMenu> AspNetNavigationMenu { get; set; }
         public DbSet<RoleMenuPermission> AspNetRoleMenuPermission { get; set; }
@@ -34,6 +42,7 @@ namespace Asset.Web.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+              base.OnModelCreating(builder);
             builder.Entity<RoleMenuPermission>()
             .HasKey(c => new { c.RoleId, c.NavigationMenuId });
 
@@ -41,9 +50,9 @@ namespace Asset.Web.Data
             //  .HasKey(c => new { c.Id, c.Id });
 
 
-            base.OnModelCreating(builder);
+          
         }
 
-        public DbSet<Asset.Web.ViewModels.AssetLiabilityView> AssetLiabilityView { get; set; }
+       public DbSet<Asset.Web.ViewModels.AssetLiabilityView> AssetLiabilityView { get; set; }
     }
 }

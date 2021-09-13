@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -12,7 +13,8 @@ namespace Asset.Web.ViewModels
         public string Type { get; set; }
         public int Tenure { get; set; }
         public string ItemType { get; set; }
-        public Decimal Value { get; set; }
+        [Column(TypeName = "decimal(18,4)")]
+        public decimal Value { get; set; }
         public string CopAssetRegNo { get; set; }
         public string CorpNName { get; set; }
         public string TenureName { get; set; }

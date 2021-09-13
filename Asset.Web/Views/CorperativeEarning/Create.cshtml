@@ -1,0 +1,89 @@
+﻿@model Asset.Web.Models.CorpReg
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create</h2>
+
+<h4>CorpReg</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="CopRegNum" class="control-label"></label>
+                <input asp-for="CopRegNum" class="form-control" />
+                <span asp-validation-for="CopRegNum" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address" class="control-label"></label>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="State" class="control-label"></label>
+                <input asp-for="State" class="form-control" />
+                <span asp-validation-for="State" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LGA" class="control-label"></label>
+                <input asp-for="LGA" class="form-control" />
+                <span asp-validation-for="LGA" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Phone" class="control-label"></label>
+                <input asp-for="Phone" class="form-control" />
+                <span asp-validation-for="Phone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Website" class="control-label"></label>
+                <input asp-for="Website" class="form-control" />
+                <span asp-validation-for="Website" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RegState" class="control-label"></label>
+                <input asp-for="RegState" class="form-control" />
+                <span asp-validation-for="RegState" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RegLGA" class="control-label"></label>
+                <input asp-for="RegLGA" class="form-control" />
+                <span asp-validation-for="RegLGA" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CACRegno" class="control-label"></label>
+                <input asp-for="CACRegno" class="form-control" />
+                <span asp-validation-for="CACRegno" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AssetPrefix" class="control-label"></label>
+                <input asp-for="AssetPrefix" class="form-control" />
+                <span asp-validation-for="AssetPrefix" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

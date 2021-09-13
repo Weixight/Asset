@@ -1,0 +1,91 @@
+﻿@model Asset.Web.Models.CorpReg
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>CorpReg</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CopRegNum)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CopRegNum)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.State)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.State)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LGA)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LGA)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Phone)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Website)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Website)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RegState)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RegState)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RegLGA)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RegLGA)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CACRegno)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CACRegno)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AssetPrefix)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AssetPrefix)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

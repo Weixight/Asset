@@ -71,8 +71,7 @@ namespace Asset.Web.ViewModels
             var ListProfitAfterTaxThreeYear = ThreeYear(CorpId, Year).Sum(k => k.Profitaftertax);
             return ListProfitAfterTaxThreeYear;
         }
-      //  public AverageMaintanableEarnings My
-
+      
 
 
     }

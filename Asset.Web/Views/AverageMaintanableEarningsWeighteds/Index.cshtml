@@ -1,0 +1,78 @@
+﻿@model IEnumerable<Asset.Web.Models.AverageMaintanableEarningsWeighted>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content container-fluid">
+    <div class="card-box m-b-0 panel panel-danger" style="margin-top:20px">
+        <div class="row">
+            <div class="col-xs-4">
+
+                <h4 class="page-title">@ViewBag.Name Asset</h4>
+            </div>
+            <div class="col-xs-8 text-right m-b-30">
+                <a asp-action="Create" class="btn btn-primary pull-right rounded"><i class="fa fa-plus"></i> Add Asset</a>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                @ViewBag.Exist
+                <div class="table-responsive">
+                    <table class="table table-striped custom-table datatable" id="example">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.CalculatedItem)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.DateCreated)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.DateUpdated)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.CreatedBy)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.UpdatedBy)
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CalculatedItem)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DateCreated)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DateUpdated)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CreatedBy)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.UpdatedBy)
+                                    </td>
+                                    <td>
+                                        <a asp-action="Edit" class="btn btn-primary fa fa-edit" asp-route-Name="@item.id">Edit</a> |
+                                        <a asp-action="Details" class="btn btn-default fa fa-book-open" asp-route-Name="@item.id">Details</a> |
+                                        <a asp-action="Delete" class="btn btn-danger fa fa-recycle" asp-route-Name="@item.id">Delete</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
