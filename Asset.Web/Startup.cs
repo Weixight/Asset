@@ -70,6 +70,7 @@ namespace Asset.Web
             services.AddTransient<IEmailSenderm, AuthMessageSender>();
             services.AddTransient<AssetLiabilityRun>();
             services.AddTransient<CorpSetUpService>();
+            services.AddTransient<MyEarningList>();
             services.Configure<IISOptions>(options =>
             {
                 options.ForwardClientCertificate = false;

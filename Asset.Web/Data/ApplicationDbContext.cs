@@ -33,6 +33,8 @@ namespace Asset.Web.Data
         public DbSet<AverageMaintanableEarningsWeighted> AverageMaintanableEarningsWeighteds { get; set; }
        // public DbSet<CorpEarningSetUp> Earning { get; set; }
         public DbSet<OurCorpSetUp> OurCorpEarningSetup { get; set; }
+        public DbSet<CorpEarning> MyEarning { get; set; }
+
         public DbSet<EarninWeight> EarninWeights { get; set; }
         public DbSet<Family> families { get; set; }
 
