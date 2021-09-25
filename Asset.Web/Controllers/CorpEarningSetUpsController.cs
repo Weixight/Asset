@@ -25,10 +25,10 @@ namespace Asset.Web.Controllers
         // GET: CorpEarningSetUps
         public async Task<IActionResult> Index()
         {
-            var CorpReg = _context.corpRegs.ToListAsync();
-            ViewBag.SetupExist = _context.OurCorpEarningSetup.Include(c => c.CorpEarning).Include(c => c.CorpReg).ToList();
+            var CorpReg = await _context.corpRegs.ToListAsync();
+            ViewBag.SetupExist = await  _context.OurCorpEarningSetup.Include(c => c.CorpEarning).Include(c => c.CorpReg).ToListAsync();
            // var applicationDbContext = _context.OurCorpEarningSetup.Include(c => c.CorpEarning).Include(c => c.CorpReg);
-            return View(await CorpReg);
+            return View(CorpReg);
         }
 
         // GET: CorpEarningSetUps/Details/5
@@ -132,7 +132,7 @@ namespace Asset.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(List<OurCorpSetUp> ourCorpSetUps, int k, int Corpid)
         {
-            var AddResult = await _corpSetUpService.UpdateEarning(ourCorpSetUps, Corpid);
+            var AddResult =  _corpSetUpService.UpdateEarning(ourCorpSetUps, Corpid).Result;
 
             if (AddResult > 0)
             {

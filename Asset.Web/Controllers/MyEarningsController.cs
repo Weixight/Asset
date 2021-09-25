@@ -15,11 +15,13 @@ namespace Asset.Web.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly MyEarningList _myEarningList;
+        private readonly CorpSetUpService _corpSetUpService;
 
-        public MyEarningsController(ApplicationDbContext context, MyEarningList myEarningList)
+        public MyEarningsController(ApplicationDbContext context, MyEarningList myEarningList, CorpSetUpService corpSetUpService)
         {
             _context = context;
             _myEarningList = myEarningList;
+            _corpSetUpService = corpSetUpService;
         }
 
         // GET: MyEarnings
@@ -29,21 +31,10 @@ namespace Asset.Web.Controllers
         }
 
         // GET: MyEarnings/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var corpEarning = await _context.MyEarning
-                .FirstOrDefaultAsync(m => m.id == id);
-            if (corpEarning == null)
-            {
-                return NotFound();
-            }
-
-            return View(corpEarning);
+            var MyEarningDetail = _corpSetUpService.MyCorpEarning(1002);
+            return View(MyEarningDetail);
         }
 
         // GET: MyEarnings/Create
@@ -57,6 +48,12 @@ namespace Asset.Web.Controllers
         {
             var Taker = _myEarningList.Create(MyCorpEarning);
             return View();
+        }
+
+        public IActionResult MyCorpEarningView(List<CorpEarning> MyCorpEarning)
+        {
+            var MyEarningDetail =_corpSetUpService.MyCorpEarning(1002);
+            return View(MyEarningDetail);
         }
 
         // POST: MyEarnings/Create

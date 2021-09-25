@@ -7,7 +7,16 @@ using System.Threading.Tasks;
 
 namespace Asset.Web.ViewModels
 {
-    
+
+    public class MydateValue
+    {
+       public  DateTime MyDate { get; set; }
+       public decimal MyValue { get; set; }
+        public int MyEarningid { get; set; }
+        public int CorpId { get; set; }
+
+    }
+
     public class MyEarningList
     {
         private readonly ApplicationDbContext _db;
@@ -55,15 +64,16 @@ namespace Asset.Web.ViewModels
         {
             var MyIncomeItem = CreateIncomeList(CorpIncome);
             var CorpReg = _db.corpRegs.FirstOrDefault(K => K.id == MyIncomeItem.FirstOrDefault().Corpid);
-            var EarningKop = _db.OurCorpEarningSetup.FirstOrDefault(K => K.CorpEarningid == MyIncomeItem.FirstOrDefault().CorpEarningid);
+            var EarningKop = _db.OurCorpEarningSetup.ToList();
             foreach (var item in MyIncomeItem)
             {
+                var MySetUp = EarningKop.FirstOrDefault(l => l.CorpEarningid == item.CorpEarningid);
                 _db.MyEarning.Add(new CorpEarning
                 {
                     CorpReg = CorpReg,
-                    KorpEarning = EarningKop,
-                    CalculatedItem = item.CalculatedItem,
-                    CorpEarningid = item.CorpEarningid,
+                    KorpEarning = MySetUp,
+                    CalculatedItem = MySetUp.CalculatedItemName,
+                    CorpEarningid = MySetUp.CorpEarningid,
                     Corpid = item.Corpid,
                     ValueAmount = item.ValueAmount,
                     ValueDate = item.ValueDate
@@ -77,32 +87,52 @@ namespace Asset.Web.ViewModels
         {
             
             List<CorpEarning> MyEarning = new List<CorpEarning>();
-            List<decimal> MyValue = new List<decimal>();
-            List<DateTime> MyDate = new List<DateTime>();
+            List<MydateValue> MyValue = new List<MydateValue>();
+           
           
             int Number = 0;
-            foreach(var item in CorpIncome)
+            foreach (var item in CorpIncome)
             {
-                MyValue.Add(item.Year_One);
-                MyValue.Add(item.Year_Two);
-                MyValue.Add(item.Year_Three);
-                MyDate.Add(item.Date_One);
-                MyDate.Add(item.Date_Two);
-                MyDate.Add(item.Date_Three);
-
-                MyEarning.Add(new CorpEarning
+                MyValue.Add(new MydateValue
                 {
-                     CalculatedItem = item.CalculatedItem,
-                     CorpEarningid = item.CorpEarningid,
-                     Corpid        = item.Corpid,
-                     CorpReg = item.CorpReg,
-                     KorpEarning = item.KorpEarning,
-                     ValueAmount = MyValue[Number],
-                     ValueDate = MyDate[Number]
-                     
+                    MyDate = item.Date_One,
+                    MyValue = item.Year_One,
+                    MyEarningid = item.CorpEarningid,
+                    CorpId = item.Corpid
                 });
-                Number++;
+                MyValue.Add(new MydateValue
+                {
+                    MyDate = item.Date_Two,
+                    MyValue = item.Year_Two,
+                    MyEarningid = item.CorpEarningid,
+                     CorpId = item.Corpid
+                });
+                MyValue.Add(new MydateValue
+                {
+                    MyDate = item.Date_Three,
+                    MyValue = item.Year_Three,
+                    MyEarningid = item.CorpEarningid,
+                     CorpId = item.Corpid
+                });
             }
+                foreach (var itemValuedate in MyValue)
+                {
+                    MyEarning.Add(new CorpEarning
+                    {
+                       
+                        ValueAmount = itemValuedate.MyValue,
+                        ValueDate = itemValuedate.MyDate,
+                        CorpEarningid = itemValuedate.MyEarningid,
+                        Corpid = itemValuedate.CorpId
+                       
+                         
+
+                    });
+                    Number++;
+                }
+
+               
+            
             return MyEarning;
         }
     }

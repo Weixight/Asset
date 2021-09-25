@@ -74,7 +74,7 @@ namespace Asset.Web.ViewModels
                 }) ;
             }
 
-            var result = await _db.SaveChangesAsync();
+            var result =  _db.SaveChanges();
             return result;
         }
         public async Task<int> UpdateEarning(List<OurCorpSetUp> ourCorpSetUps, int Corpid)
@@ -93,10 +93,72 @@ namespace Asset.Web.ViewModels
 
 
             }
-            var result = await _db.SaveChangesAsync();
+            var result =  _db.SaveChanges();
             return result;
 
            
         }
+
+        public List<CorpEarning> MyCorpEarning(int CorpId)
+        {
+            var MyCorpEarning = _db.MyEarning.Where(K => K.Corpid == CorpId && K.ValueDate.Year >= System.DateTime.Now.AddYears(-2).Year).ToList();
+            List<CorpEarning> MyCurrentEarning = new List<CorpEarning>();
+            MyCorpEarning = _db.MyEarning.Where(K => K.Corpid == CorpId ).ToList();
+            MyCorpEarning = ConvertThreeYears(MyCorpEarning);
+            return MyCurrentEarning;
+        }
+
+        public List<CorpEarning>ConvertThreeYears(List<CorpEarning> corpEarnings)
+        {
+            List<CorpEarning> ThreeYearsEarning = new List<CorpEarning>();
+            var MySetupList = _db.OurCorpEarningSetup.Where(l => l.CorpReg.id == corpEarnings.FirstOrDefault().Corpid);
+            decimal YearOneValue = 0;
+            decimal YearTwoValue = 0;
+            decimal YearThreeValue = 0;
+            DateTime valueDate1 = new DateTime();
+            DateTime valueDate2 = new DateTime();
+            DateTime valueDate3 = new DateTime();
+            foreach (var item in corpEarnings)
+            {
+                var GetMySetUp = MySetupList.FirstOrDefault(K => K.id == item.CorpEarningid);
+                var CorpReg = _db.corpRegs.FirstOrDefault(K => K.id == corpEarnings.FirstOrDefault().id);
+                if(item.ValueDate.Year == System.DateTime.Now.Year)
+                {
+                    YearOneValue = item.ValueAmount;
+                    valueDate1 = item.ValueDate;
+                }
+                else if (item.ValueDate.Year == System.DateTime.Now.AddYears(-1).Year)
+                {
+                    YearTwoValue = item.ValueAmount;
+                    valueDate2 = item.ValueDate;
+                }
+                else if (item.ValueDate.Year == System.DateTime.Now.AddYears(-2).Year)
+                {
+                    YearThreeValue = item.ValueAmount;
+                    valueDate3 = item.ValueDate;
+                }
+                ThreeYearsEarning.Add(new CorpEarning
+                {
+                      id = item.id,
+                     CalculatedItem = GetMySetUp.CalculatedItemName,
+                     CorpEarningid = item.CorpEarningid,
+                     Corpid = item.Corpid,
+                     KorpEarning = item.KorpEarning,
+                     ValueAmount = item.ValueAmount,
+                     ValueDate = item.ValueDate,
+                     CorpReg = CorpReg,
+                     Year_One = YearOneValue,
+                     Year_Two = YearTwoValue,
+                     Year_Three = YearThreeValue,
+
+
+                    
+                }) ;
+               
+
+            }
+            return ThreeYearsEarning;
+        }
+       
     }
 }
