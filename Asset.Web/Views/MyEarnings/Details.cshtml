@@ -39,7 +39,11 @@
                                                 <input asp-for="@Model[i].CalculatedItem" readonly class="form-control" type="text" style="min-width:150px">
                                             </td>
                                             <td>
-                                                <input asp-for="@Model[i].Year_One" class="form-control" style="min-width:150px" type="text">
+                                                @if (Model[i].Year_One != 0)
+                                                {
+                                                }
+                                                <input asp-for="@Model[i].Year_One"  class="form-control" style="min-width:150px" type="text">
+
                                                 <input asp-for="@Model[i].Date_One" value="@System.DateTime.Now.Date" type="hidden">
                                                 <input asp-for="@Model[i].Corpid" type="hidden">
                                                 <input asp-for="@Model[i].CorpEarningid" type="hidden">

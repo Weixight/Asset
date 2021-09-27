@@ -33,7 +33,7 @@ namespace Asset.Web.Controllers
         // GET: MyEarnings/Details/5
         public async Task<IActionResult> Details(int id)
         {
-            var MyEarningDetail = _corpSetUpService.MyCorpEarning(1002);
+            var MyEarningDetail = _corpSetUpService.GetMyApplicableEarning(1002);
             return View(MyEarningDetail);
         }
 
@@ -47,7 +47,7 @@ namespace Asset.Web.Controllers
         public IActionResult MyCreate(decimal Year_one, decimal Year_Two, decimal Year_Three, List<CorpEarning> MyCorpEarning)
         {
             var Taker = _myEarningList.Create(MyCorpEarning);
-            return View();
+            return RedirectToAction(nameof(Index));
         }
 
         public IActionResult MyCorpEarningView(List<CorpEarning> MyCorpEarning)
