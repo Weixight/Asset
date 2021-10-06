@@ -27,21 +27,42 @@ namespace Asset.Web.Controllers
         // GET: MyEarnings
         public async Task<IActionResult> Index()
         {
-            return View(await _context.corpRegs.ToListAsync());
+            var MyCorlist = await _context.corpRegs.ToListAsync();
+            ViewBag.CorpSetUpList = _context.OurCorpEarningSetup.ToList();
+            ViewBag.Earning = _context.MyEarning.ToList();
+            return View(MyCorlist);
         }
 
         // GET: MyEarnings/Details/5
         public async Task<IActionResult> Details(int id)
         {
-            var MyEarningDetail = _corpSetUpService.GetMyApplicableEarning(1002);
+            var MyEarningDetail = _corpSetUpService.GetMyApplicableEarning(id);
             return View(MyEarningDetail);
         }
 
         // GET: MyEarnings/Create
         public IActionResult Create(int id)
         {
+
             var MyEarning = _myEarningList.TheEarningList(id);
+            var Corp = _context.corpRegs.FirstOrDefault(K => K.id == id);
+            ViewBag.CorpName = Corp.Name;
             return View(MyEarning);
+        }
+
+        public IActionResult CreateSingleYearEarning(int id)
+        {
+
+            var MyEarning = _myEarningList.TheEarningList(id);
+            var Corp = _context.corpRegs.FirstOrDefault(K => K.id == id);
+            ViewBag.CorpName = Corp.Name;
+            return View(MyEarning);
+        }
+        [HttpPost]
+        public IActionResult CreateSingleYearEarning(List<CorpEarning> MyCorpEarning , DateTime ValueDate)
+        {
+            var Taker = _myEarningList.Create(MyCorpEarning);
+            return RedirectToAction(nameof(Index));
         }
         [HttpPost]
         public IActionResult MyCreate(decimal Year_one, decimal Year_Two, decimal Year_Three, List<CorpEarning> MyCorpEarning)
@@ -50,7 +71,7 @@ namespace Asset.Web.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult MyCorpEarningView(List<CorpEarning> MyCorpEarning)
+        public IActionResult MyCorpEarningView(List<CorpEarning> MyCorpEarning, int CorpId)
         {
             var MyEarningDetail =_corpSetUpService.MyCorpEarning(1002);
             return View(MyEarningDetail);

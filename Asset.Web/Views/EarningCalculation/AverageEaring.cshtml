@@ -25,6 +25,8 @@
                                         <th class="col-sm-2">@System.DateTime.Now.Year</th>
                                         <th class="col-sm-2">@System.DateTime.Now.AddYears(-1).Year</th>
                                         <th class="col-sm-2">@System.DateTime.Now.AddYears(-2).Year</th>
+                                        <th class="col-sm-2">Total Earning</th>
+                                        <th class="col-sm-2">Average Earning</th>
 
 
 
@@ -39,10 +41,8 @@
                                                 <input asp-for="@Model[i].CalculatedItem" readonly class="form-control" type="text" style="min-width:150px">
                                             </td>
                                             <td>
-                                                @if (Model[i].Year_One != 0)
-                                                {
-                                                }
-                                                <input asp-for="@Model[i].Year_One"  class="form-control" style="min-width:150px" type="text">
+
+                                                <input asp-for="@Model[i].Year_One" readonly class="form-control" style="min-width:150px" type="text">
 
                                                 <input asp-for="@Model[i].Date_One" value="@System.DateTime.Now.Date" type="hidden">
                                                 <input asp-for="@Model[i].Corpid" type="hidden">
@@ -52,23 +52,78 @@
 
                                             </td>
                                             <td>
-                                                <input asp-for="@Model[i].Year_Two" class="form-control" style="min-width:150px" type="text">
+                                                <input asp-for="@Model[i].Year_Two" class="form-control" readonly style="min-width:150px" type="text">
                                                 <input asp-for="@Model[i].Date_Two" value="@System.DateTime.Now.AddYears(-1).Date" type="hidden">
 
                                             </td>
                                             <td>
-                                                <input asp-for="@Model[i].Year_Three" class="form-control" style="min-width:150px" type="text">
+                                                <input asp-for="@Model[i].Year_Three" class="form-control" readonly style="min-width:150px" type="text">
                                                 <input asp-for="@Model[i].Date_Three" value="@System.DateTime.Now.AddYears(-2).Date" type="hidden">
+                                            </td>
+                                            <td>
+                                                <input asp-for="@Model[i].TotalEearning" class="form-control" readonly style="min-width:150px" type="text">
+                                            </td>
+                                            <td>
+                                                <input asp-for="@Model[i].AverageValue" class="form-control" readonly style="min-width:150px" type="text">
                                             </td>
 
 
                                         </tr>
                                     }
 
+                                    
+
+                                    <tr>
+
+                                        <td>
+                                            <input value="Annual Net" readonly class="form-control" type="text" style="font-weight:bold">
+                                        </td>
+
+
+                                        <td>
+
+                                            @{
+                                                var AnnualIncome1 = Model.Where(K => K.Date_One.Year == System.DateTime.Now.Year && K.Purpose == "Income").ToList().Sum(K => K.Year_One);
+                                                var Expense1 = Model.Where(K => K.Date_One.Year == System.DateTime.Now.Year && K.Purpose == "Expense").ToList().Sum(K => K.Year_One);
+                                                var Balance1 = AnnualIncome1 - Expense1;
+                                            }
+
+                                            <input value="@Balance1" readonly class="form-control" style="font-weight:bold" type="text">
+
+
+
+                                        </td>
+                                        <td>
+                                            @{
+                                                var AnnualIncome2 = Model.Where(K => K.Purpose == "Income").ToList().Sum(K => K.Year_Two);
+                                                var Expense2 = Model.Where(K => K.Purpose == "Expense").ToList().Sum(K => K.Year_Two);
+                                                var Balance2 = AnnualIncome2 - Expense2;
+                                            }
+                                            <input class="form-control" value="@Balance2" readonly style="font-weight:bold" type="text">
+
+                                        </td>
+                                        <td>
+                                            @{
+                                                var AnnualIncome3 = Model.Where(K => K.Purpose == "Income").ToList().Sum(K => K.Year_Three);
+                                                var Expense3 = Model.Where(K => K.Purpose == "Expense").ToList().Sum(K => K.Year_Three);
+                                                var Balance3 = AnnualIncome3 - Expense3;
+                                            }
+                                            <input class="form-control" value="@Balance3" readonly style="font-weight:bold" type="text">
+                                        </td>
+                                        <td>
+                                            <input class="form-control" readonly style="font-weight:bold" type="text">
+                                        </td>
+                                        <td>
+                                            <input class="form-control" readonly style="font-weight:bold" type="text">
+                                        </td>
+
+
+                                    </tr>
+
                                 </tbody>
                             </table>
                         </div>
-                        @*<div class="table-responsive">
+                        <div class="table-responsive">
                             <table class="table table-hover table-white">
                                 <tbody>
 
@@ -86,7 +141,10 @@
 
                                         </td>
                                         <td style="text-align: right; padding-right: 30px;width: 230px">
-                                            <input readonly class="form-control text-right" type="text">
+                                            @{ 
+                                                var AveRageEarning = Model.Sum(K => K.TotalEearning)/Model.Count();
+                                            }
+                                            <input readonly class="form-control text-right" value="@Model.Count Years"  type="text">
                                         </td>
                                     </tr>
                                     <tr>
@@ -96,7 +154,10 @@
 
                                         </td>
                                         <td style="text-align: right; padding-right: 30px;width: 230px">
-                                            <input readonly class="form-control text-right" type="text">
+                                            @{ 
+                                                var AveRageEarningMy = Model.Where(K => K.Purpose == "Income").Sum(K => K.AverageEarning);
+                                            }
+                                            <input readonly class="form-control text-right" value="@AveRageEarningMy" type="text">
                                         </td>
                                     </tr>
                                     <tr>
@@ -121,7 +182,7 @@
                                     </tr>
                                 </tbody>
                             </table>
-                        </div>*@
+                        </div>
 
                     </div>
                 </div>

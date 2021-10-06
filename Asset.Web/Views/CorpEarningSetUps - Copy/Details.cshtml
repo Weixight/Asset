@@ -1,0 +1,37 @@
+﻿@model Asset.Web.Models.CorpEarningSetUp
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>CorpEarningSetUp</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Applied)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Applied)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CorpReg)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CorpReg.id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CorpEarning)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CorpEarning.id)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

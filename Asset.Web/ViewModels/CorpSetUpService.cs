@@ -35,6 +35,7 @@ namespace Asset.Web.ViewModels
                         CorpName = GetMyCorpDetails.Name,
                         CorpReg = GetMySetUp.CorpReg,
                         CorpEarning = GetMySetUp.CorpEarning,
+                        Corpid = GetMySetUp.Corpid,
 
 
                     });
@@ -51,6 +52,8 @@ namespace Asset.Web.ViewModels
            
             return ourCorpSetUpLsit;
         }
+
+
 
         public async Task<int> CreateCorpEarningAsync(List<OurCorpSetUp> ourCorpSetUps ,string Name)
         {
@@ -161,39 +164,7 @@ namespace Asset.Web.ViewModels
 
                     }
                 }
-               //if(TheCorpEarningList.Any(K=>K.Date_One.Year==System.DateTime.Now.Year))
-               // {
-               //     item.Date_One = TheCorpEarningList[0].Date_One;
-               //     item.Year_One = TheCorpEarningList[0].Year_One;
-               // }
-               //else if(TheCorpEarningList.Any(K => K.Date_One.Year == System.DateTime.Now.AddYears(-1).Year))
-               // {
-               //     item.Date_Two = TheCorpEarningList[0].Date_Two;
-               //     item.Year_Two = TheCorpEarningList[0].Year_Two;
-               // }
-               // else if (TheCorpEarningList.Any(K => K.Date_One.Year == System.DateTime.Now.AddYears(-2).Year))
-               // {
-               //     item.Date_Three = TheCorpEarningList[0].Date_Three;
-               //     item.Year_Three = TheCorpEarningList[0].Year_Three;
-               // }
-               // ThreeYearsEarning.Add(new CorpEarning
-               // {
-               //      id = item.id,
-               //      CalculatedItem = GetMySetUp.CorpEarning.CalculatedItem,
-               //      CorpEarningid = GetMySetUp.CorpEarning.id,
-               //      Corpid = CorpReg.id,
-               //      KorpEarning = GetMySetUp,
-               //      ValueAmount = item.ValueAmount,
-               //      ValueDate = item.ValueDate,
-               //      CorpReg = CorpReg,
-               //      Year_One = item.Year_One,
-               //      Year_Two = YearTwoValue,
-               //      Year_Three = YearThreeValue,
-
-
-                    
-               // }) ;
-               
+      
 
             }
             return TheCorpEarningList;
@@ -201,6 +172,7 @@ namespace Asset.Web.ViewModels
         public List<CorpEarning>GetMyApplicableEarning(int CorpId)
         {
             List<CorpEarning> MyEarning = new List<CorpEarning>();
+            var OurWeight = _db.EarninWeights.ToList();
             var PrimaryItemList = _db.AverageMaintanableEarningsWeighteds.ToList();
             var CorpReg = _db.corpRegs.FirstOrDefault(K=>K.id ==CorpId);
             var TheValueEarningList = _db.MyEarning.Where(K => K.Corpid == CorpId).ToList();
@@ -208,63 +180,104 @@ namespace Asset.Web.ViewModels
             foreach(var item in MyApplicable)
             {
                 var TheitemValueList = TheValueEarningList.Where(K => K.CorpEarningid == item.id).ToList();
-                List<CorpEarning> earning = new List<CorpEarning>();
-                decimal Year1 = 0;
-                decimal Year2 = 0;
-                decimal Year3 = 0;
-                DateTime date1 = new DateTime();
-                DateTime date2 = new DateTime();
-                DateTime date3 = new DateTime();
-                foreach(var itemValue in TheitemValueList)
+                if (TheitemValueList.Count() != 0)
                 {
-                    if (System.DateTime.Now.Year == itemValue.ValueDate.Year)
+                    List<CorpEarning> earning = new List<CorpEarning>();
+                    decimal Year1 = 0;
+                    decimal Year2 = 0;
+                    decimal Year3 = 0;
+                    decimal TotalEarning = 0;
+                    decimal TotalExpense = 0;
+                    decimal AverageEarning = 0;
+                    decimal Weight1 = 0;
+                    decimal Weight2 = 0;
+                    decimal Weight3 = 0;
+                    DateTime date1 = new DateTime();
+                    DateTime date2 = new DateTime();
+                    DateTime date3 = new DateTime();
+
+
+                    foreach (var itemValue in TheitemValueList)
                     {
-                        Year1 = itemValue.ValueAmount;
-                        date1 = System.DateTime.Now;
+                        if (System.DateTime.Now.Year == itemValue.ValueDate.Year)
+                        {
+
+                            Year1 = itemValue.ValueAmount;
+                            date1 = System.DateTime.Now;
+                            Weight1 = OurWeight.FirstOrDefault(K => K.ValueDate.Year == date1.Year).ValuePercentage;
+
+
+                        }
+
+                        else if (System.DateTime.Now.AddYears(-1).Year == itemValue.ValueDate.Year)
+                        {
+                            Year2 = itemValue.ValueAmount;
+                            date2 = System.DateTime.Now.AddYears(-1);
+                            Weight2 = OurWeight.FirstOrDefault(K => K.ValueDate.Year == date2.Year).ValuePercentage;
+
+                        }
+                        else if (System.DateTime.Now.AddYears(-2).Year == itemValue.ValueDate.Year)
+                        {
+                            Year3 = itemValue.ValueAmount;
+                            date3 = System.DateTime.Now.AddYears(-2);
+                            Weight3 = OurWeight.FirstOrDefault(K => K.ValueDate.Year == date3.Year).ValuePercentage;
+
+
+                        }
+
 
 
                     }
 
-                    else if(System.DateTime.Now.AddYears(-1).Year== itemValue.ValueDate.Year)
+                    var IsExpense = PrimaryItemList.FirstOrDefault(K => K.id == item.CorpEarningid).Purpose;
+
+
+                    var MyIndividualEarning = TheValueEarningList.FirstOrDefault(K => K.CorpEarningid == item.id);
+                    var MyPrimaryItem = PrimaryItemList.FirstOrDefault(K => K.id == item.CorpEarningid);
+                    var Total = Year1 + Year2 + Year3;
+                    var Average = Total / TheitemValueList.Count;
+
+
+                    MyEarning.Add(new CorpEarning
                     {
-                        Year2 = itemValue.ValueAmount;
-                        date2 = System.DateTime.Now.AddYears(-1);
-
-                    }
-                    else if (System.DateTime.Now.AddYears(-2).Year == itemValue.ValueDate.Year)
-                    {
-                        Year3 = itemValue.ValueAmount;
-                        date3 = System.DateTime.Now.AddYears(-2);
-
-
-                    }
+                        id = MyIndividualEarning.id,
+                        CalculatedItem = MyPrimaryItem.CalculatedItem,
+                        KorpEarning = item,
+                        CorpEarningid = item.id,
+                        Corpid = CorpId,
+                        CorpReg = CorpReg,
+                        Year_One = Year1,
+                        Year_Two = Year2,
+                        Year_Three = Year3,
+                        CreatedBy = MyIndividualEarning.CreatedBy,
+                        DateCreated = MyIndividualEarning.DateCreated,
+                        DateUpdated = MyIndividualEarning.DateUpdated,
+                        Date_One = date1,
+                        Date_Two = date2,
+                        Date_Three = date3,
+                        AverageValue = Average,
+                        TotalEearning = TotalEarning,
+                        Purpose = IsExpense,
+                        AverageEarning = Average,
+                        Weight1 = Weight1,
+                        Weight2 = Weight2,
+                        Weight3 = Weight3,
+                    });
                 }
-            
-                var MyIndividualEarning = TheValueEarningList.FirstOrDefault(K => K.CorpEarningid == item.id);
-                var MyPrimaryItem = PrimaryItemList.FirstOrDefault(K => K.id == item.CorpEarningid);
-                MyEarning.Add(new CorpEarning
-                {
-                    id = MyIndividualEarning.id,
-                    CalculatedItem = MyPrimaryItem.CalculatedItem,
-                    KorpEarning = item,
-                    CorpEarningid = item.id,
-                    Corpid = CorpId,
-                    CorpReg = CorpReg,
-                    Year_One = Year1,
-                    Year_Two = Year2,
-                    Year_Three = Year3,
-                    CreatedBy = MyIndividualEarning.CreatedBy,
-                    DateCreated = MyIndividualEarning.DateCreated,
-                    DateUpdated = MyIndividualEarning.DateUpdated,
-                    Date_One = date1,
-                    Date_Two = date2,
-                    Date_Three = date3,
-                      
-
-                }) ;
             }
 
             return MyEarning;
+        }
+
+        public List<CorpEarning>GetApplicableWeighted(int CorpId)
+        {
+           
+            var MyEarning = GetMyApplicableEarning(CorpId);
+            foreach(var item in MyEarning)
+            {
+
+            }
+            return null;
         }
        
     }

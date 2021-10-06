@@ -88,8 +88,6 @@ namespace Asset.Web.Controllers
                 return NotFound();
             }
             ViewBag.Coperative = _context.corpRegs.FirstOrDefault(l => l.Name == Name);
-           // ViewData["CalculatedItemId"] = new SelectList(_context.Set<CorpEarning>(), "id", "id", corpEarningSetUp.CorpEarningid);
-            //ViewData["Corpid"] = new SelectList(_context.corpRegs, "id", "id", corpEarningSetUp.Corpid);
             return View(corpEarningSetUp);
         }
         [HttpPost]
@@ -132,7 +130,7 @@ namespace Asset.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(List<OurCorpSetUp> ourCorpSetUps, int k, int Corpid)
         {
-            var AddResult =  _corpSetUpService.UpdateEarning(ourCorpSetUps, Corpid).Result;
+            var AddResult =  _corpSetUpService.UpdateEarning(ourCorpSetUps, ourCorpSetUps.FirstOrDefault().Corpid).Result;
 
             if (AddResult > 0)
             {

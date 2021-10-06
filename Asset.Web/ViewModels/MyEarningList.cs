@@ -35,7 +35,7 @@ namespace Asset.Web.ViewModels
             {
                 foreach (var item in EarningSetUp)
                 {
-                    
+                    var ItemList = MyItemList.FirstOrDefault(K => K.id == item.CorpEarningid);
                     var TheAverageEarning = MyEarning.FirstOrDefault(K => K.CorpEarningid == item.CorpEarningid);
                    
                         NewEarning.Add(new CorpEarning
@@ -44,8 +44,9 @@ namespace Asset.Web.ViewModels
                             CalculatedItem = item.CorpEarning.CalculatedItem,
                             Corpid = item.Corpid,
                             CorpReg = CorpReg,
-                            CorpEarningid = item.CorpEarningid,
+                            CorpEarningid = item.id,
                             KorpEarning = item,
+                            Purpose = ItemList.Purpose,
 
 
                         });
@@ -67,19 +68,46 @@ namespace Asset.Web.ViewModels
             var EarningKop = _db.OurCorpEarningSetup.ToList();
             foreach (var item in MyIncomeItem)
             {
-                var MySetUp = EarningKop.FirstOrDefault(l => l.CorpEarningid == item.CorpEarningid);
+                var MySetUp = EarningKop.FirstOrDefault(l => l.id == item.CorpEarningid);
                 _db.MyEarning.Add(new CorpEarning
                 {
                     CorpReg = CorpReg,
                     KorpEarning = MySetUp,
                     CalculatedItem = MySetUp.CalculatedItemName,
-                    CorpEarningid = MySetUp.CorpEarningid,
+                    CorpEarningid = MySetUp.id,
                     Corpid = item.Corpid,
                     ValueAmount = item.ValueAmount,
                     ValueDate = item.ValueDate
                 }) ;
             }
             var result = _db.SaveChanges(); 
+            return result;
+        }
+
+        public int CreateSingleEarning(List<CorpEarning> CorpIncome, DateTime ValueDate)
+        {
+            var MyEarning = _db.MyEarning.Where(K => K.Corpid == CorpIncome.FirstOrDefault().Corpid);
+            var CorpReg = _db.corpRegs.FirstOrDefault(K => K.id == CorpIncome.FirstOrDefault().Corpid);
+            var EarningKop = _db.OurCorpEarningSetup.ToList();
+            foreach (var item in CorpIncome)
+            {
+                var MyEarningExist = MyEarning.FirstOrDefault(K => K.ValueDate == item.ValueDate && K.CorpEarningid == item.CorpEarningid);
+                if (item.ValueDate != ValueDate && item.CorpEarningid == MyEarningExist.CorpEarningid)
+                {
+                    var MySetUp = EarningKop.FirstOrDefault(l => l.id == item.CorpEarningid);
+                    _db.MyEarning.Add(new CorpEarning
+                    {
+                        CorpReg = CorpReg,
+                        KorpEarning = MySetUp,
+                        CalculatedItem = MySetUp.CalculatedItemName,
+                        CorpEarningid = MySetUp.id,
+                        Corpid = item.Corpid,
+                        ValueAmount = item.ValueAmount,
+                        ValueDate = item.ValueDate
+                    });
+                }
+            }
+            var result = _db.SaveChanges();
             return result;
         }
 

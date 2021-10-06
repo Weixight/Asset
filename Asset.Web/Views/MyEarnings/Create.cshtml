@@ -4,10 +4,153 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<script>
+    function ChangeValue(m) {
+      
+       // var TdName = document.getElementById("z" + m + "__CalculatedItem").value
+        var Profit1 = 0;
+        var Profit2 = 0;
+        var Profit3 = 0;
+        var Expense1 = 0;
+        var Expense2 = 0;
+        var Expense3 = 0;
+        var Revenue1 = 0;
+        var Income = 0;
+        var Income1 = 0;
+        var Income2 = 0;
+        var ExpenseBox = 0;
+        var ExpenseBox1 = 0;
+        var ExpenseBox2 = 0;
+        var Gross_Profit1 = 0;
+        var Cost_Of_Good_Sold1 = 0;
+        var Revenue2 = 0;
+        var Gross_Profit2 = 0;
+        var Cost_Of_Good_Sold2 = 0;
+        var Revenue3 = 0;
+        var Gross_Profit3 = 0;
+        var Cost_Of_Good_Sold3 = 0;
+        var IncomeArray1 = [];
+        var ExpenseArray1 = [];
+        var Purpose1 = "";
+        var Purpose2 = "";
+        var Purpose3 = "";
+      
+        var Name = document.getElementById("z" + m + "__CalculatedItem").value;
+        ExpenseBox = parseFloat(document.getElementById("MyExpense").value)
+        ExpenseBox1 = parseFloat(document.getElementById("MyExpense1").value)
+        ExpenseBox2 = parseFloat(document.getElementById("MyExpense2").value)
+        Income = parseFloat(document.getElementById("MyIncome").value)
+        Income1 = parseFloat(document.getElementById("MyIncome1").value)
+        Income2 = parseFloat(document.getElementById("MyIncome2").value)
+        var Year_One = parseFloat(document.getElementById("z" + m + "__Year_One").value)
+        var Year_Two = parseFloat(document.getElementById("z" + m + "__Year_Two").value)
+        var Year_Three = parseFloat(document.getElementById("z" + m + "__Year_Three").value)
+       
+      
+
+        if (Name == "Revenue") {
+            Revenue1 = Year_One;
+            if (document.getElementById("Purpose1__" + m).value == "Income") {
+                IncomeArray1.push(Year_One);
+                // alert(IncomeArray1.length)
+            }
+
+
+        }
+        else if (Name == "Cost of goods sold") {
+            Cost_Of_Good_Sold1 = Year_One;
+            Cost_Of_Good_Sold2 = Year_Two;
+            Cost_Of_Good_Sold3 = Year_Three
+            Revenue1 = parseFloat(document.getElementById("z" + 0 + "__Year_One").value)
+            Revenue2 = parseFloat(document.getElementById("z" + 0 + "__Year_Two").value)
+            Revenue3 = parseFloat(document.getElementById("z" + 0 + "__Year_Three").value)
+            Gross_Profit1 = parseFloat(Revenue1) - Cost_Of_Good_Sold1;
+            Gross_Profit2 = parseFloat(Revenue2) - Cost_Of_Good_Sold2;
+            Gross_Profit3 = parseFloat(Revenue3) - Cost_Of_Good_Sold3;
+
+            document.getElementById("z" + 2 + "__Year_One").value = Gross_Profit1;
+            document.getElementById("z" + 2 + "__Year_Two").value = Gross_Profit2;
+            document.getElementById("z" + 2 + "__Year_Three").value = Gross_Profit3;
+            document.getElementById("MyExpense").value = Cost_Of_Good_Sold1;
+            document.getElementById("MyIncome").value = Gross_Profit1;
+            document.getElementById("MyExpense1").value = Cost_Of_Good_Sold2;
+            document.getElementById("MyIncome1").value = Gross_Profit2;
+            document.getElementById("MyExpense2").value = Cost_Of_Good_Sold3;
+            document.getElementById("MyIncome2").value = Gross_Profit3;
+
+
+
+        }
+       
+        else if (Name != "Revenue" && Name != "Cost of goods sold") {
+          
+           
+            if (document.getElementById("z" + m + "__Year_One").value != null) {
+              
+                Purpose1 = document.getElementById("Purpose1_" + m).value;
+                 
+                if (Purpose1 == "Income") {
+                    var IncomeResult = Income + parseFloat(document.getElementById("z" + m + "__Year_One").value);
+                   
+                    document.getElementById("MyIncome").value = IncomeResult;
+
+                }
+                else {
+                    var ExpenseResult = ExpenseBox + parseFloat(document.getElementById("z" + m + "__Year_One").value);
+                    document.getElementById("MyExpense").value = ExpenseResult;
+
+                }
+            }
+            else if (document.getElementById("z" + m + "__Year_Two").value != null) {
+               
+                Purpose2 = document.getElementById("Purpose2_" + m).value;
+              
+                if (Purpose2 == "Income") {
+                    var IncomeResult1 = Income1 + parseFloat(document.getElementById("z" + m + "__Year_Two").value);
+                    document.getElementById("MyIncome1").value = IncomeResult1;
+                }
+                else {
+                    var ExpenseResult1 = ExpenseBox1 + parseFloat(document.getElementById("z" + m + "__Year_Two").value);
+                    document.getElementById("MyExpense1").value = ExpenseResult1;
+
+                }
+            }
+
+            else if (document.getElementById("z" + m + "__Year_Three").value != null) {
+                Purpose3 = document.getElementById("Purpose3_" + m).value;
+               
+                if (Purpose3 == "Income") {
+                    var IncomeResult2 = Income2 + parseFloat(document.getElementById("z" + m + "__Year_Three").value);
+                    document.getElementById("MyIncome2").value = IncomeResult2;
+
+                }
+                else {
+                    var ExpenseResult2 = ExpenseBox2 + parseFloat(document.getElementById("z" + m + "__Year_Three").value);
+                    document.getElementById("MyExpense2").value = ExpenseResult2;
+
+                }
+            }
+           
+        }
+        
+       
+       
+       
+
+    }
+    function Expense() {
+        return 0;
+    }
+
+    function Income() {
+
+        return 0;
+    }
+</script>
     <div class="content container-fluid">
         <div class="row">
             <div class="col-sm-8">
-                <h4 class="page-title">Create Estimate</h4>
+                <h4 class="page-title">@ViewBag.CorpName</h4>
             </div>
         </div>
         <div class="row">
@@ -22,103 +165,59 @@
                                         <tr>
 
                                             <th class="col-sm-2">Item Name</th>
-                                            <th class="col-sm-2">@System.DateTime.Now.Year</th>
-                                            <th class="col-sm-2">@System.DateTime.Now.AddYears(-1).Year</th>
-                                            <th class="col-sm-2">@System.DateTime.Now.AddYears(-2).Year</th>
+                                            <th class="col-sm-2" id="Year1">@System.DateTime.Now.Year</th>
+                                            <th class="col-sm-2" id="Year2">@System.DateTime.Now.AddYears(-1).Year</th>
+                                            <th class="col-sm-2" id="Year3">@System.DateTime.Now.AddYears(-2).Year</th>
 
-                                           
+
 
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @for (var i = 0; i < Model.Count; i++)
                                         {
-                                        <tr>
+                                            <tr>
 
-                                            <td>
-                                                <input asp-for="@Model[i].CalculatedItem" readonly class="form-control" type="text" style="min-width:150px">
-                                            </td>
-                                            <td>
-                                                <input asp-for="@Model[i].Year_One" class="form-control" style="min-width:150px" type="text">
-                                                <input asp-for="@Model[i].Date_One" value="@System.DateTime.Now.Date" type="hidden">
-                                                <input asp-for="@Model[i].Corpid" type="hidden">
-                                                <input asp-for="@Model[i].CorpEarningid" type="hidden">
-                                                <input asp-for="@Model[i].CorpReg" type="hidden">
-                                                <input asp-for="@Model[i].KorpEarning" type="hidden">
+                                                <td>
+                                                    <input asp-for="@Model[i].CalculatedItem" readonly class="form-control" type="text" style="min-width:150px">
+                                                </td>
+                                                <td id="Year_One">
+                                                    <input asp-for="@Model[i].Year_One" class="form-control" style="min-width:150px" onblur="ChangeValue(@i)" type="text">
+                                                    <input asp-for="@Model[i].Purpose" id="Purpose1_@i" class="form-control" style="min-width:150px" type="hidden">
+                                                    <input asp-for="@Model[i].Date_One" value="@System.DateTime.Now.Date" type="hidden">
+                                                    <input asp-for="@Model[i].Corpid" type="hidden">
+                                                    <input asp-for="@Model[i].CorpEarningid" type="hidden">
+                                                    <input asp-for="@Model[i].CorpReg" type="hidden">
+                                                    <input asp-for="@Model[i].KorpEarning" type="hidden">
 
-                                            </td>
-                                            <td>
-                                                <input asp-for="@Model[i].Year_Two" class="form-control" style="min-width:150px" type="text">
-                                                <input asp-for="@Model[i].Date_Two" value="@System.DateTime.Now.AddYears(-1).Date" type="hidden">
+                                                </td>
+                                                <td id="Year_Two">
+                                                    <input asp-for="@Model[i].Purpose" id="Purpose2_@i" class="form-control" style="min-width:150px" type="hidden">
+                                                    <input asp-for="@Model[i].Year_Two" class="form-control" onblur="ChangeValue(@i)" style="min-width:150px" type="text">
+                                                    <input asp-for="@Model[i].Date_Two" value="@System.DateTime.Now.AddYears(-1).Date" type="hidden">
 
-                                            </td>
-                                            <td>
-                                                <input asp-for="@Model[i].Year_Three" class="form-control" style="min-width:150px" type="text">
-                                                <input asp-for="@Model[i].Date_Three" value="@System.DateTime.Now.AddYears(-2).Date" type="hidden">
-                                            </td>
+                                                </td>
+                                                <td id="Year_Three">
+                                                    <input asp-for="@Model[i].Purpose" id="Purpose3_@i" class="form-control" style="min-width:150px" type="hidden">
+                                                    <input asp-for="@Model[i].Year_Three" onblur="ChangeValue(@i)" class="form-control" style="min-width:150px" type="text">
+                                                    <input asp-for="@Model[i].Date_Three" value="@System.DateTime.Now.AddYears(-2).Date" type="hidden">
+                                                </td>
 
-                                           
-                                        </tr>
+
+                                            </tr>
                                         }
-                                            
-                                        </tbody>
-                                </table>
-                            </div>
-                            <div class="table-responsive">
-                                <table class="table table-hover table-white">
-                                    <tbody>
-                                       
-                                        <tr>
-                                            <td colspan="5" class="text-right">
-                                                Total earnings (PAT)
-                                            </td>
-                                            <td style="text-align: right; padding-right: 30px;width: 230px">
-                                                <input class="form-control text-right" value="0" readonly="" type="text">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="5" class="text-right">
-                                                Number of years
-
-                                            </td>
-                                            <td style="text-align: right; padding-right: 30px;width: 230px">
-                                                <input readonly class="form-control text-right" type="text">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="5" class="text-right">
-                                                3-year average earnings
 
 
-                                            </td>
-                                            <td style="text-align: right; padding-right: 30px;width: 230px">
-                                                <input  readonly class="form-control text-right" type="text">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="5" class="text-right">
-                                                Capitalisation rate
-
-
-
-                                            </td>
-                                            <td style="text-align: right; padding-right: 30px;width: 230px">
-                                                <input readonly class="form-control text-right" type="text">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="5" style="text-align: right; font-weight: bold">
-                                                Total valuation
-
-                                            </td>
-                                            <td style="text-align: right; padding-right: 30px; font-weight: bold; font-size: 16px;width: 230px">
-                                                &#x20A6; 0.00
-                                            </td>
-                                        </tr>
                                     </tbody>
                                 </table>
+                                <input type="text" id="MyExpense" value="0" />
+                                <input type="text" id="MyExpense1" value="0" />
+                                <input type="text" id="MyExpense2" value="0" />
+                                <input type="text" id="MyIncome" value="0"/>
+                                <input type="text" id="MyIncome1" value="0"/>
+                                <input type="text" id="MyIncome2" value="0"/>
                             </div>
-                            
+                          
                         </div>
                     </div>
                     <button class="btn btn-primary">Save & Send</button> <button class="btn btn-primary">Save</button>

@@ -1,0 +1,87 @@
+﻿@model IEnumerable<Asset.Web.Models.EarninWeight>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content container-fluid">
+    <div class="card-box m-b-0 panel panel-danger" style="margin-top:20px">
+        <div class="row">
+            <div class="col-xs-4">
+
+                <h4 class="page-title">@ViewBag.Name Asset</h4>
+            </div>
+            <div class="col-xs-8 text-right m-b-30">
+                <a asp-action="Create" class="btn btn-primary pull-right rounded"><i class="fa fa-plus"></i> Add Asset</a>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                @ViewBag.Exist
+                <div class="table-responsive">
+                    <table class="table table-striped custom-table datatable" id="example">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ValuePercentage)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ValueDate)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ValueYear)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.CreatedDate)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.UpdatedDate)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.CreatedBy)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.UpdatedBy)
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ValuePercentage)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ValueDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ValueYear)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CreatedDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.UpdatedDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CreatedBy)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.UpdatedBy)
+                                    </td>
+                                    <td>
+                                        <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
+                                        <a asp-action="Details" asp-route-id="@item.id">Details</a> |
+                                        <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+            </div>

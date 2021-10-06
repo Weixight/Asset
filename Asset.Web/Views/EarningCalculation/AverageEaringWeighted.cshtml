@@ -1,0 +1,234 @@
+﻿@model List<Asset.Web.Models.CorpEarning>
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content container-fluid">
+    <div class="row">
+        <div class="col-sm-8">
+            <h4 class="page-title">Create Estimate</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <form asp-action="MyCreate">
+
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-white">
+                                <thead>
+                                    <tr>
+
+                                        <th class="col-sm-2">Item Name</th>
+                                        <th class="col-sm-2">@System.DateTime.Now.Year</th>
+                                        <th class="col-sm-2">@System.DateTime.Now.AddYears(-1).Year</th>
+                                        <th class="col-sm-2">@System.DateTime.Now.AddYears(-2).Year</th>
+                                        <th class="col-sm-2">Total Earning</th>
+                                        <th class="col-sm-2">Average Earning</th>
+
+
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @for (var i = 0; i < Model.Count; i++)
+                                    {
+                                        <tr>
+
+                                            <td>
+                                                <input asp-for="@Model[i].CalculatedItem" readonly class="form-control" type="text" style="min-width:150px">
+                                            </td>
+                                            <td>
+
+                                                <input asp-for="@Model[i].Year_One" readonly class="form-control" style="min-width:150px" type="text">
+
+                                                <input asp-for="@Model[i].Date_One" value="@System.DateTime.Now.Date" type="hidden">
+                                                <input asp-for="@Model[i].Corpid" type="hidden">
+                                                <input asp-for="@Model[i].CorpEarningid" type="hidden">
+                                                <input asp-for="@Model[i].CorpReg" type="hidden">
+                                                <input asp-for="@Model[i].KorpEarning" type="hidden">
+
+                                            </td>
+                                            <td>
+                                                <input asp-for="@Model[i].Year_Two" class="form-control" readonly style="min-width:150px" type="text">
+                                                <input asp-for="@Model[i].Date_Two" value="@System.DateTime.Now.AddYears(-1).Date" type="hidden">
+
+                                            </td>
+                                            <td>
+                                                <input asp-for="@Model[i].Year_Three" class="form-control" readonly style="min-width:150px" type="text">
+                                                <input asp-for="@Model[i].Date_Three" value="@System.DateTime.Now.AddYears(-2).Date" type="hidden">
+                                            </td>
+                                            <td>
+                                                <input asp-for="@Model[i].TotalEearning" class="form-control" readonly style="min-width:150px" type="text">
+                                            </td>
+                                            <td>
+                                                <input asp-for="@Model[i].AverageValue" class="form-control" readonly style="min-width:150px" type="text">
+                                            </td>
+
+
+                                        </tr>
+                                    }
+                                    <tr>
+
+                                        <td>
+                                            <input value="Weight" readonly class="form-control" type="text" style="font-weight:bold">
+                                        </td>
+
+
+                                        <td>
+
+
+
+                                            <input asp-for="@Model.FirstOrDefault().Weight1" readonly class="form-control" style="font-weight:bold" type="text">
+
+
+
+                                        </td>
+                                        <td>
+
+                                            <input class="form-control" asp-for="@Model.FirstOrDefault().Weight2" readonly style="font-weight:bold" type="text">
+
+                                        </td>
+                                        <td>
+
+                                            <input class="form-control" asp-for="@Model.FirstOrDefault().Weight3" readonly style="font-weight:bold" type="text">
+                                        </td>
+                                        <td>
+                                            <input class="form-control" readonly style="font-weight:bold" type="text">
+                                        </td>
+                                        <td>
+                                            <input class="form-control" readonly style="font-weight:bold" type="text">
+                                        </td>
+
+
+                                    </tr>
+
+                                    <tr>
+
+                                        <td>
+                                            <input value="Annual Net" readonly class="form-control" type="text" style="font-weight:bold">
+                                        </td>
+
+
+                                        <td>
+
+                                            @{
+                                                var AnnualIncome1 = Model.Where(K => K.Date_One.Year == System.DateTime.Now.Year && K.Purpose == "Income").ToList().Sum(K => K.Year_One);
+                                                var Expense1 = Model.Where(K => K.Date_One.Year == System.DateTime.Now.Year && K.Purpose == "Expense").ToList().Sum(K => K.Year_One);
+                                                var Balance1 = AnnualIncome1 - Expense1;
+                                            }
+
+                                            <input value="@Balance1" readonly class="form-control" style="font-weight:bold" type="text">
+
+
+
+                                        </td>
+                                        <td>
+                                            @{
+                                                var AnnualIncome2 = Model.Where(K => K.Purpose == "Income").ToList().Sum(K => K.Year_Two);
+                                                var Expense2 = Model.Where(K => K.Purpose == "Expense").ToList().Sum(K => K.Year_Two);
+                                                var Balance2 = AnnualIncome2 - Expense2;
+                                            }
+                                            <input class="form-control" value="@Balance2" readonly style="font-weight:bold" type="text">
+
+                                        </td>
+                                        <td>
+                                            @{
+                                                var AnnualIncome3 = Model.Where(K => K.Purpose == "Income").ToList().Sum(K => K.Year_Three);
+                                                var Expense3 = Model.Where(K => K.Purpose == "Expense").ToList().Sum(K => K.Year_Three);
+                                                var Balance3 = AnnualIncome3 - Expense3;
+                                            }
+                                            <input class="form-control" value="@Balance3" readonly style="font-weight:bold" type="text">
+                                        </td>
+                                        <td>
+                                            <input class="form-control" readonly style="font-weight:bold" type="text">
+                                        </td>
+                                        <td>
+                                            <input class="form-control" readonly style="font-weight:bold" type="text">
+                                        </td>
+
+
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-hover table-white">
+                                <tbody>
+
+                                    <tr>
+                                        <td colspan="5" class="text-right">
+                                            Total earnings (PAT)
+                                        </td>
+                                        <td style="text-align: right; padding-right: 30px;width: 230px">
+                                            <input class="form-control text-right" value="0" readonly="" type="text">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="5" class="text-right">
+                                            Number of years
+
+                                        </td>
+                                        <td style="text-align: right; padding-right: 30px;width: 230px">
+                                            @{
+                                                var AveRageEarning = Model.Sum(K => K.TotalEearning) / Model.Count();
+                                            }
+                                            <input readonly class="form-control text-right" value="@Model.Count Years" type="text">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="5" class="text-right">
+                                            3-year average earnings
+
+
+                                        </td>
+                                        <td style="text-align: right; padding-right: 30px;width: 230px">
+                                            @{
+                                                var AveRageEarningMy = Model.Where(K => K.Purpose == "Income").Sum(K => K.AverageEarning);
+                                            }
+                                            <input readonly class="form-control text-right" value="@AveRageEarningMy" type="text">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="5" class="text-right">
+                                            Capitalisation rate
+
+
+
+                                        </td>
+                                        <td style="text-align: right; padding-right: 30px;width: 230px">
+                                            <input readonly class="form-control text-right" type="text">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="5" style="text-align: right; font-weight: bold">
+                                            Total valuation
+
+                                        </td>
+                                        <td style="text-align: right; padding-right: 30px; font-weight: bold; font-size: 16px;width: 230px">
+                                            &#x20A6; 0.00
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+                <button class="btn btn-primary">Save & Send</button> <button class="btn btn-primary">Save</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div>
+    <a class="btn btn-success" asp-action="Index">Back to List</a>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
