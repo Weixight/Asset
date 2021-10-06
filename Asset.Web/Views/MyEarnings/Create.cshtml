@@ -5,9 +5,12 @@
 }
 
 <script>
-    function ChangeValue(m) {
+    function ChangeValue(m, PurposeId) {
+        //alert(PurposeId.id);
       
        // var TdName = document.getElementById("z" + m + "__CalculatedItem").value
+        var Purpose_id = PurposeId.id;
+        var Purpose_value = PurposeId.value;
         var Profit1 = 0;
         var Profit2 = 0;
         var Profit3 = 0;
@@ -84,14 +87,12 @@
        
         else if (Name != "Revenue" && Name != "Cost of goods sold") {
           
-           
-            if (document.getElementById("z" + m + "__Year_One").value != null) {
-              
-                Purpose1 = document.getElementById("Purpose1_" + m).value;
-                 
-                if (Purpose1 == "Income") {
+            var myString = Purpose_id.substr(0, Purpose_id.length - 2);
+            if (myString == "Purpose1") {
+               
+                if (Purpose_value == "Income") {
                     var IncomeResult = Income + parseFloat(document.getElementById("z" + m + "__Year_One").value);
-                   
+
                     document.getElementById("MyIncome").value = IncomeResult;
 
                 }
@@ -101,32 +102,32 @@
 
                 }
             }
-            else if (document.getElementById("z" + m + "__Year_Two").value != null) {
-               
-                Purpose2 = document.getElementById("Purpose2_" + m).value;
+
+            if (myString == "Purpose2") {
               
-                if (Purpose2 == "Income") {
-                    var IncomeResult1 = Income1 + parseFloat(document.getElementById("z" + m + "__Year_Two").value);
-                    document.getElementById("MyIncome1").value = IncomeResult1;
+                if (Purpose_value == "Income") {
+                    var IncomeResult = Income1 + parseFloat(document.getElementById("z" + m + "__Year_Two").value);
+
+                    document.getElementById("MyIncome1").value = IncomeResult;
+
                 }
                 else {
-                    var ExpenseResult1 = ExpenseBox1 + parseFloat(document.getElementById("z" + m + "__Year_Two").value);
-                    document.getElementById("MyExpense1").value = ExpenseResult1;
+                    var ExpenseResult = ExpenseBox1 + parseFloat(document.getElementById("z" + m + "__Year_Two").value);
+                    document.getElementById("MyExpense1").value = ExpenseResult;
 
                 }
             }
+            if (myString == "Purpose3") {
+              
+                if (Purpose_value == "Income") {
+                    var IncomeResult = Income2 + parseFloat(document.getElementById("z" + m + "__Year_Three").value);
 
-            else if (document.getElementById("z" + m + "__Year_Three").value != null) {
-                Purpose3 = document.getElementById("Purpose3_" + m).value;
-               
-                if (Purpose3 == "Income") {
-                    var IncomeResult2 = Income2 + parseFloat(document.getElementById("z" + m + "__Year_Three").value);
-                    document.getElementById("MyIncome2").value = IncomeResult2;
+                    document.getElementById("MyIncome2").value = IncomeResult;
 
                 }
                 else {
-                    var ExpenseResult2 = ExpenseBox2 + parseFloat(document.getElementById("z" + m + "__Year_Three").value);
-                    document.getElementById("MyExpense2").value = ExpenseResult2;
+                    var ExpenseResult = ExpenseBox2 + parseFloat(document.getElementById("z" + m + "__Year_Three").value);
+                    document.getElementById("MyExpense2").value = ExpenseResult;
 
                 }
             }
@@ -182,7 +183,7 @@
                                                     <input asp-for="@Model[i].CalculatedItem" readonly class="form-control" type="text" style="min-width:150px">
                                                 </td>
                                                 <td id="Year_One">
-                                                    <input asp-for="@Model[i].Year_One" class="form-control" style="min-width:150px" onblur="ChangeValue(@i)" type="text">
+                                                    <input asp-for="@Model[i].Year_One" class="form-control" style="min-width:150px" onblur="ChangeValue(@i,Purpose1_@i)" type="text">
                                                     <input asp-for="@Model[i].Purpose" id="Purpose1_@i" class="form-control" style="min-width:150px" type="hidden">
                                                     <input asp-for="@Model[i].Date_One" value="@System.DateTime.Now.Date" type="hidden">
                                                     <input asp-for="@Model[i].Corpid" type="hidden">
@@ -193,13 +194,13 @@
                                                 </td>
                                                 <td id="Year_Two">
                                                     <input asp-for="@Model[i].Purpose" id="Purpose2_@i" class="form-control" style="min-width:150px" type="hidden">
-                                                    <input asp-for="@Model[i].Year_Two" class="form-control" onblur="ChangeValue(@i)" style="min-width:150px" type="text">
+                                                    <input asp-for="@Model[i].Year_Two" class="form-control" onblur="ChangeValue(@i,Purpose2_@i)" style="min-width:150px" type="text">
                                                     <input asp-for="@Model[i].Date_Two" value="@System.DateTime.Now.AddYears(-1).Date" type="hidden">
 
                                                 </td>
                                                 <td id="Year_Three">
                                                     <input asp-for="@Model[i].Purpose" id="Purpose3_@i" class="form-control" style="min-width:150px" type="hidden">
-                                                    <input asp-for="@Model[i].Year_Three" onblur="ChangeValue(@i)" class="form-control" style="min-width:150px" type="text">
+                                                    <input asp-for="@Model[i].Year_Three" onblur="ChangeValue(@i,Purpose3_@i)" class="form-control" style="min-width:150px" type="text">
                                                     <input asp-for="@Model[i].Date_Three" value="@System.DateTime.Now.AddYears(-2).Date" type="hidden">
                                                 </td>
 
